@@ -1,0 +1,23 @@
+{
+  "name": "ecommerceapplication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khuongdoanngoc/EcommerceApplication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khuongdoanngoc/EcommerceApplication/issues"
+  },
+  "homepage": "https://github.com/khuongdoanngoc/EcommerceApplication#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
