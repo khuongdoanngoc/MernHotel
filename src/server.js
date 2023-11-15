@@ -1,7 +1,9 @@
+require('dotenv').config()
+
 const express = require("express");
 const app = express();
-require('dotenv').config()
 const PORT = process.env.PORT;
+const authRoutes = require('./routes/authRoute')
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,8 +13,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB
-const connect = require('./model/db/connect.db')
+const connect = require('./configs/db')
 connect();
+
+// routes
+app.use('/api/v1/auth', authRoutes);
 
 
 app.get('/', (req, res) => {
