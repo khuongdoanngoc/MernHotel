@@ -4,6 +4,7 @@
     height: 114px;
     display: flex;
     flex-direction: column;
+    letter-spacing: .5px;
 }
 
 .header-info {
@@ -12,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 160px;
-    background-color: black;
+    background-color: #24292e;
     color: white;
 }
 
@@ -22,30 +23,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 9px;
 }
 
 .header-container {
     width: 100%;
     height: 64%;
-    background-color: chocolate;
+    background-color: pink;
+    padding: 0px 160px 0px 160px;
 }
 
-
-
-.bi-truck {
-    width: 14px;
-    height: 14px;
+.header-logo {
+    display: flex;
+    width: 270px;
+    height: 100%;
+    gap: 15px;
+    align-items: center;
 }
 
-.header-free-ship {
-
+.header-icon-sidebar {
+    all: initial;
 }
 
-.header-payment-methods {
-
+.header-logo a {
+    all: initial;
+    cursor: pointer;
 }
 
-.header-contact {
-
+.header-web-name {
+    font-size: 23px;
+    font-weight: 400;
+    font-family: 'Poppins';
 }
