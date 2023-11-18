@@ -1,6 +1,8 @@
 const { hashPassword, comparePassword } = require("../helpers/authHelper");
 const userModel = require("../models/usersModel");
 
+const JWT = require("jsonwebtoken");
+
 const register = async (req, res) => {
     try {
         const newUserData = req.body;
@@ -48,34 +50,69 @@ const register = async (req, res) => {
             user: user,
         });
     } catch (error) {
-        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in register",
+            error,
+        });
     }
 };
 
 const login = async (req, res) => {
-    const body = req.body;
-    await userModel
-        .findOne({ email: body.email })
-        .then((user) => {
-            if (!user) {
-                return res.send("Wrong email!");
-            }
-            const match = comparePassword(body.password, user.password);
-            console.log(match)
-            if (!match) {
-                return res.send("Wrong password!");
-            }
-        })
-        .catch((err) => {
-            console.log("user find err: ", err);
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            res.status(404).send({
+                success: false,
+                message: "Wrong email or password",
+            });
+        }
+
+        const result = await userModel.findOne({ email });
+
+        if (!result) {
+            return res.status(404).send({
+                success: false,
+                message: "Wrong email",
+            });
+        }
+
+        // compare password
+        const isMatched = await comparePassword(password, result.password);
+        if (!isMatched) {
+            return res.status(404).send({
+                success: false,
+                message: "Wrong Password",
+            });
+        }
+
+        const payload = {
+            _id: result._id,
+        };
+        // sign jwt
+        const token = await JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+        res.status(201).send({
+            success: true,
+            message: "Login Successfully",
+            user: result,
+            token
         });
-    res.status(201).send({
-        success: true,
-        message: "Login Successfully",
-    });
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Error in login",
+            error,
+        });
+    }
 };
+
+const secret = async (req, res, next) => {
+    res.send('secret called!');
+}
 
 module.exports = {
     register,
     login,
+    secret
 };
