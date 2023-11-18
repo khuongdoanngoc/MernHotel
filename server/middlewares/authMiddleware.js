@@ -6,7 +6,7 @@ const requireLogin = async (req, res, next) => {
         // verify token from header authorization
         const authHeader = req.headers.authorization
         if (!authHeader) {
-            res.status(404).send({
+            res.status(401).send({
                 success: false,
                 message: 'No Auth Token'
             })
@@ -23,7 +23,7 @@ const requireLogin = async (req, res, next) => {
 const isAdmin = async (req, res, next) => {
     const userDb = await userModel.findOne({_id: req.user._id})
     if (userDb.role !== 1) {
-        return res.status(404).send({
+        return res.status(401).send({
             success: false,
             message: 'No Authorization!'
         })

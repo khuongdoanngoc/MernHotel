@@ -1,0 +1,51 @@
+/* HEADER CSS */
+.header {
+    width: 100%;
+    height: 114px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-info {
+    width: 100%;
+    height: 36%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 160px;
+    background-color: black;
+    color: white;
+}
+
+.header-info-items {
+    width: 350px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.header-container {
+    width: 100%;
+    height: 64%;
+    background-color: chocolate;
+}
+
+
+
+.bi-truck {
+    width: 14px;
+    height: 14px;
+}
+
+.header-free-ship {
+
+}
+
+.header-payment-methods {
+
+}
+
+.header-contact {
+
+}
