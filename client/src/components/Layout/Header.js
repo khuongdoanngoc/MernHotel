@@ -1,12 +1,18 @@
 import "./styles.css";
 import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Dropdown from "react-bootstrap/Dropdown";
 
 function Header() {
-    const [show, setShow] = useState(false);
+    // left sidebar configurations
+    const [showLeft, setShowLeft] = useState(false);
+    const handleCloseLeft = () => setShowLeft(false);
+    const handleShowLeft = () => setShowLeft(true);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // right sidebar configurations
+    const [showRight, setShowRight] = useState(false);
+    const handleCloseRight = () => setShowRight(false);
+    const handleShowRight = () => setShowRight(true);
 
     return (
         <header className="header">
@@ -28,17 +34,19 @@ function Header() {
                 <div className="header-logo">
                     <button
                         className="header-icon-sidebar"
-                        onClick={handleShow}>
-                        <i className="bi bi-justify" style={{ fontSize: '23px'}}></i>
+                        onClick={handleShowLeft}>
+                        <i
+                            className="bi bi-justify"
+                            style={{ fontSize: "23px" }}></i>
                     </button>
                     <a href="/">
                         <span className="header-web-name">MERN Store</span>
                     </a>
                     <Offcanvas
-                        show={show}
-                        onHide={handleClose}
-                        scroll={true}
-                        backdrop={true}>
+                        show={showLeft}
+                        onHide={handleCloseLeft}
+                        backdrop={true}
+                        scroll={true}>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title>Offcanvas</Offcanvas.Title>
                         </Offcanvas.Header>
@@ -49,8 +57,54 @@ function Header() {
                         </Offcanvas.Body>
                     </Offcanvas>
                 </div>
-                <div className="header-search"></div>
-                <div className="header-right-items"></div>
+                <div className="header-search">
+                    <input type="text" placeholder="Search Products" />
+                </div>
+                <div className="header-right-items">
+                    <div className="header-card">
+                        <button
+                            style={{ all: "initial" }}
+                            onClick={handleShowRight}>
+                            <i
+                                class="bi bi-cart"
+                                style={{ fontSize: "23px" }}></i>
+                        </button>
+                        <Offcanvas
+                            show={showRight}
+                            onHide={handleCloseRight}
+                            backdrop={true}
+                            scroll={true}
+                            placement="end">
+                            <Offcanvas.Header closeButton>
+                                <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                            </Offcanvas.Header>
+                            <Offcanvas.Body>
+                                Some text as placeholder. In real life you can
+                                have the elements you have chosen. Like, text,
+                                images, lists, etc.
+                            </Offcanvas.Body>
+                        </Offcanvas>
+                    </div>
+                    <div className="header-brands text-right-items">Brands</div>
+                    <div className="header-shop text-right-items">Shop</div>
+                    <div className="header-auth text-right-items">
+                        <Dropdown className="header-auth-dropdown">
+                            <Dropdown.Toggle
+                                variant="success"
+                                id="dropdown-basic">
+                                    Welcome
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/login">
+                                    Login
+                                </Dropdown.Item>
+                                <Dropdown.Item href="#/register">
+                                    Sign Up
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                </div>
             </div>
         </header>
     );
