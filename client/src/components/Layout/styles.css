@@ -114,3 +114,59 @@
     box-shadow: none !important;
     color: #65676b !important;
 }
+
+main {
+    padding: 0px 160px 0px 160px;
+    min-height: 58vh;
+}
+
+footer {
+    padding: 0px 160px 0px 160px;
+    height: 290px;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #ebeef6;
+}
+
+.footer-content {
+    width: 100%;
+    height: 63%;
+    padding-top: 20px;
+    display: flex;
+}
+
+.footer-content-container {
+    width: 33.3334%;
+    height: 100%;
+    background-color: yellow;
+}
+
+.footer-content-container span {
+    color: #65676b;
+}
+
+.footer-content-container div {
+    padding-top: 10px;
+    gap: 4px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.footer-copyright {
+    width: 100%;
+    height: 12%;
+}
+
+.footer-social-items {
+    width: 100%;
+    height: 25%;
+}

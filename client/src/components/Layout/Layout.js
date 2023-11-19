@@ -3,7 +3,7 @@ import Footer from "./Footer";
 
 function Layout({ children }) {
     return ( 
-        <div>
+        <div className="layout">
             <Header/>
             <main>
                 {children}

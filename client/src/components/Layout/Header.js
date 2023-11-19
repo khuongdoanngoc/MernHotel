@@ -18,15 +18,15 @@ function Header() {
         <header className="header">
             <div className="header-info">
                 <div className="header-info-items">
-                    <i class="bi bi-truck"></i>
+                    <i className="bi bi-truck"></i>
                     <span>Free Shipping</span>
                 </div>
                 <div className="header-info-items">
-                    <i class="bi bi-credit-card"></i>
+                    <i className="bi bi-credit-card"></i>
                     <span>Payment Methods</span>
                 </div>
                 <div className="header-info-items">
-                    <i class="bi bi-telephone"></i>
+                    <i className="bi bi-telephone"></i>
                     <span>Call us 951-999-9999</span>
                 </div>
             </div>
@@ -66,7 +66,7 @@ function Header() {
                             style={{ all: "initial" }}
                             onClick={handleShowRight}>
                             <i
-                                class="bi bi-cart"
+                                className="bi bi-cart"
                                 style={{ fontSize: "23px" }}></i>
                         </button>
                         <Offcanvas
