@@ -2,6 +2,8 @@ import "./styles.css";
 import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
+import Form from "react-bootstrap/Form";
+
 
 function Header() {
     // left sidebar configurations
@@ -58,12 +60,12 @@ function Header() {
                     </Offcanvas>
                 </div>
                 <div className="header-search">
-                    <input type="text" placeholder="Search Products" />
+                    <Form.Control placeholder="Search Products"></Form.Control>
                 </div>
                 <div className="header-right-items">
                     <div className="header-card">
                         <button
-                            style={{ all: "initial" }}
+                            style={{ all: "initial", cursor: "pointer" }}
                             onClick={handleShowRight}>
                             <i
                                 className="bi bi-cart"
@@ -95,10 +97,10 @@ function Header() {
                                     Welcome
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#/login">
+                                <Dropdown.Item href="/login">
                                     Login
                                 </Dropdown.Item>
-                                <Dropdown.Item href="#/register">
+                                <Dropdown.Item href="/register">
                                     Sign Up
                                 </Dropdown.Item>
                             </Dropdown.Menu>

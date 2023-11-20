@@ -133,15 +133,25 @@ footer {
 
 .footer-content {
     width: 100%;
-    height: 63%;
+    height: 60%;
     padding-top: 20px;
     display: flex;
+    gap: 16px;
 }
 
 .footer-content-container {
     width: 33.3334%;
     height: 100%;
-    background-color: yellow;
+}
+
+.footer-border-right {
+    border-right: 1px solid #ebeef6;
+}
+
+.footer-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 7px !important;
 }
 
 .footer-content-container span {
@@ -164,9 +174,31 @@ footer {
 .footer-copyright {
     width: 100%;
     height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-copyright span {
+    font-size: 14px;
+    color: #323232;
 }
 
 .footer-social-items {
     width: 100%;
     height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+}
+
+.footer-social-items i {
+    font-size: 40px;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

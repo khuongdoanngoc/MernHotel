@@ -6,7 +6,7 @@ function Footer() {
     return (
         <footer>
             <div className="footer-content">
-                <div className="footer-content-container">
+                <div className="footer-content-container footer-border-right">
                     <h3 style={{ fontSize: "1.12rem", fontWeight: 500 }}>
                         CUSTOMER SERVICES
                     </h3>
@@ -16,7 +16,7 @@ function Footer() {
                         <span>Shipping</span>
                     </div>
                 </div>
-                <div className="footer-content-container">
+                <div className="footer-content-container footer-border-right">
                     <h3 style={{ fontSize: "1.12rem", fontWeight: 500 }}>
                         LINKS
                     </h3>
@@ -51,8 +51,23 @@ function Footer() {
                     </div>
                 </div>
             </div>
-            <div className="footer-copyright"></div>
-            <div className="footer-social-items"></div>
+            <div className="footer-copyright">
+                <span>© {new Date().getFullYear()} MERN Store</span>
+            </div>
+            <div className="footer-social-items">
+                <div className="footer-social-item">
+                    <i className="bi bi-facebook"></i>
+                </div>
+                <div className="footer-social-item">
+                    <i className="bi bi-instagram"></i>
+                </div>
+                <div className="footer-social-item">
+                    <i className="bi bi-pinterest"></i>
+                </div>
+                <div className="footer-social-item">
+                    <i className="bi bi-twitter"></i>
+                </div>
+            </div>
         </footer>
     );
 }
