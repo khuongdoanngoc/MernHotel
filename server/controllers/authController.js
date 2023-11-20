@@ -10,19 +10,19 @@ const register = async (req, res) => {
         {
             const { name, email, password, phone, address } = newUserData;
             if (!name) {
-                return res.send({ error: "Name is Required!" });
+                return res.status(404).send({ success: false, message: "Name is Required!" });
             }
             if (!email) {
-                return res.send({ error: "Email is Required!" });
+                return res.status(404).send({ success: false, message: "Email is Required!" });
             }
             if (!password) {
-                return res.send({ error: "Password is Required!" });
+                return res.status(404).send({ success: false, message: "Password is Required!" });
             }
             if (!phone) {
-                return res.send({ error: "Phone is Required!" });
+                return res.status(404).send({ success: false, message: "Phone is Required!" });
             }
             if (!address) {
-                return res.send({ error: "Address is Required!" });
+                return res.status(404).send({ success: false, message: "Address is Required!" });
             }
         }
         // hash password
@@ -34,7 +34,10 @@ const register = async (req, res) => {
             email: newUserData.email,
         });
         if (existingUser) {
-            return res.send("email already exist");
+            return res.status(409).send({
+                success: false,
+                message: "email already exist"
+            });
         }
         const user = await new userModel(newUserData)
             .save()
