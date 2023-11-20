@@ -33,11 +33,20 @@
 }
 
 .login-social {
+    all: initial;
+    font-family: 'Poppins';
     width: 300px;
     height: 40px;
     padding: 12px 20px;
     border: solid;
     cursor: pointer;
+}
+
+.login-social:hover {
+    border-color: black !important;
+    box-shadow: 0 0 0 0.1rem black !important;
+    background-color: transparent !important;
+    transition: 0.2s ease-in;
 }
 
 .login-social button {

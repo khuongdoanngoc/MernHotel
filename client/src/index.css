@@ -32,14 +32,6 @@ button {
     cursor: pointer;
 }
 
-a {
-    all: initial;
-    cursor: pointer;
-}
-
-a:hover {
-    border-color: black !important;
-    box-shadow: 0 0 0 0.1rem black !important;
-    background-color: transparent !important;
-    transition: 0.2s ease-in;
+span {
+    font-family: 'Poppins' !important;
 }

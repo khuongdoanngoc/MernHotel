@@ -29,6 +29,7 @@ function Login() {
                                     placeholder="Please enter your password"
                                     aria-label="password"
                                     aria-describedby="basic-addon1"
+                                    type="password"
                                 />
                             </div>
                         </div>
@@ -38,7 +39,7 @@ function Login() {
                                     <i
                                         className="bi bi-google"
                                         style={{ fontSize: "30px" }}></i>
-                                    <span style={{ fontSize: "20px" }}>
+                                    <span style={{ fontSize: "20px", fontFamily: "Poppins" }}>
                                         Login with Google
                                     </span>
                                 </button>
@@ -48,7 +49,7 @@ function Login() {
                                     <i
                                         className="bi bi-facebook"
                                         style={{ fontSize: "30px" }}></i>
-                                    <span style={{ fontSize: "20px" }}>
+                                    <span style={{ fontSize: "20px", fontFamily: "Poppins" }}>
                                         Login with Facebook
                                     </span>
                                 </button>
