@@ -36,7 +36,7 @@ const register = async (req, res) => {
         if (existingUser) {
             return res.status(409).send({
                 success: false,
-                message: "email already exist"
+                message: "Email already exist"
             });
         }
         const user = await new userModel(newUserData)

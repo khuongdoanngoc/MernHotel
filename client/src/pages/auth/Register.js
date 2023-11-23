@@ -1,9 +1,10 @@
 import "../../styles/authStyles/login.css";
 import Layout from "../../components/Layout/Layout";
 import Form from "react-bootstrap/Form";
-import { toast } from "react-toastify";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ function Register() {
     const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,15 +27,21 @@ function Register() {
                 address,
             };
             const res = await axios.post(urlRegister, data);
-            console.log(res)
             if (res.data.success) {
                 toast.success(res.data.message);
+                console.log('toast rendered')
+                navigate("/login");
             } else {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            console.log(error)
-            toast.error("Failure Registation!");
+            console.log(error.response.data);
+            if (!error.response.data.success) {
+                const message = error.response.data.message;
+                toast.error(message);
+            } else {
+                toast.error("Failure Registation!");
+            }
         }
     };
 
