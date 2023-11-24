@@ -3,18 +3,30 @@ import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
-
+import { useAuth } from "../../context/auth";
+import { toast } from "react-toastify";
 
 function Header() {
     // left sidebar configurations
     const [showLeft, setShowLeft] = useState(false);
     const handleCloseLeft = () => setShowLeft(false);
     const handleShowLeft = () => setShowLeft(true);
+    const [auth, setAuth] = useAuth();
 
     // right sidebar configurations
     const [showRight, setShowRight] = useState(false);
     const handleCloseRight = () => setShowRight(false);
     const handleShowRight = () => setShowRight(true);
+
+    const handleLogout = () => {
+        setAuth({
+            ...auth,
+            user: null,
+            token: ""
+        })
+        localStorage.removeItem('auth')
+        toast.success('Logout Successfully')
+    }
 
     return (
         <header className="header">
@@ -91,18 +103,36 @@ function Header() {
                     <div className="header-shop text-right-items">Shop</div>
                     <div className="header-auth text-right-items">
                         <Dropdown className="header-auth-dropdown">
-                            <Dropdown.Toggle
-                                variant="success"
-                                id="dropdown-basic">
+                            {!auth.user ? (
+                                <Dropdown.Toggle
+                                    variant="success"
+                                    id="dropdown-basic">
                                     Welcome
-                            </Dropdown.Toggle>
+                                </Dropdown.Toggle>
+                            ) : (
+                                <Dropdown.Toggle
+                                    variant="success"
+                                    id="dropdown-basic">
+                                    {auth.user.name}
+                                </Dropdown.Toggle>
+                            )}
                             <Dropdown.Menu>
-                                <Dropdown.Item href="/login">
-                                    Login
-                                </Dropdown.Item>
-                                <Dropdown.Item href="/register">
-                                    Sign Up
-                                </Dropdown.Item>
+                                {!auth.user ? (
+                                    <>
+                                        <Dropdown.Item href="/login">
+                                            Login
+                                        </Dropdown.Item>
+                                        <Dropdown.Item href="/register">
+                                            Sign Up
+                                        </Dropdown.Item>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Dropdown.Item href="/login" onClick={handleLogout}>
+                                            Logout
+                                        </Dropdown.Item>
+                                    </>
+                                )}
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

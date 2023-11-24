@@ -9,20 +9,30 @@ const register = async (req, res) => {
         // validate required: true
         {
             const { name, email, password, phone, address } = newUserData;
-            if (!name) {
-                return res.status(404).send({ success: false, message: "Name is Required!" });
-            }
             if (!email) {
-                return res.status(404).send({ success: false, message: "Email is Required!" });
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Email is Required!" });
             }
             if (!password) {
-                return res.status(404).send({ success: false, message: "Password is Required!" });
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Password is Required!" });
+            }
+            if (!name) {
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Name is Required!" });
             }
             if (!phone) {
-                return res.status(404).send({ success: false, message: "Phone is Required!" });
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Phone is Required!" });
             }
             if (!address) {
-                return res.status(404).send({ success: false, message: "Address is Required!" });
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Address is Required!" });
             }
         }
         // hash password
@@ -36,7 +46,7 @@ const register = async (req, res) => {
         if (existingUser) {
             return res.status(409).send({
                 success: false,
-                message: "Email already exist"
+                message: "Email already exist",
             });
         }
         const user = await new userModel(newUserData)
@@ -93,13 +103,15 @@ const login = async (req, res) => {
             _id: result._id,
         };
         // sign jwt
-        const token = await JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+        const token = await JWT.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: "7d",
+        });
 
         res.status(201).send({
             success: true,
             message: "Login Successfully",
             user: result,
-            token
+            token,
         });
     } catch (error) {
         res.status(500).send({
@@ -111,11 +123,11 @@ const login = async (req, res) => {
 };
 
 const secret = async (req, res, next) => {
-    res.send('secret called!');
-}
+    res.send("secret called!");
+};
 
 module.exports = {
     register,
     login,
-    secret
+    secret,
 };

@@ -18,7 +18,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const urlRegister = `${process.env.REACT_APP_API}/api/v1/auth/register`;
+            const registerURL = `${process.env.REACT_APP_API}/api/v1/auth/register`;
             const data = {
                 name,
                 email,
@@ -26,10 +26,12 @@ function Register() {
                 phone,
                 address,
             };
-            const res = await axios.post(urlRegister, data);
+            if (confirmPassword !== data.password) {
+                return toast.error('Password and confirm password do not match!')
+            }
+            const res = await axios.post(registerURL, data);
             if (res.data.success) {
                 toast.success(res.data.message);
-                console.log('toast rendered')
                 navigate("/login");
             } else {
                 toast.error(res.data.message);
