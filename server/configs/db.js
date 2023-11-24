@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const connect = async () => {
-    await mongoose.connect(process.env.MONGODB_PUBLIC_CONNECT)
+    await mongoose.connect(process.env.MONGODB_LOCAL_CONNECT)
     .then(() => {
         console.log('connect to db successfully!')
     })

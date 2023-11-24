@@ -63,6 +63,7 @@ const register = async (req, res) => {
             user: user,
         });
     } catch (error) {
+        console.log(error)
         res.status(500).send({
             success: false,
             message: "Error in register",
