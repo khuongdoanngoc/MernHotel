@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
+import { toast } from "react-toastify";
 
 function Home() {
-    const [auth, setAuth] = useAuth();
+    const [auth] = useAuth();
+
+    useEffect(() => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const dataReceived = urlSearchParams.get("isAuthorized");
+        if (dataReceived === "no") {
+            toast.warning("No Authorized!");
+        }
+    }, []);
 
     return (
         <div>

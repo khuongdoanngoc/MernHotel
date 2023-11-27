@@ -19,11 +19,6 @@ connect();
 // routes
 app.use('/api/v1/auth', authRoutes);
 
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`)
 })

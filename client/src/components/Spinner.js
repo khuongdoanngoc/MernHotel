@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { HashLoader } from "react-spinners";
 
 function Spinner() {
-    const [count, setCount] = useState(5);
+    const [count, setCount] = useState(3);
     const navigate = useNavigate();
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCount((preCount) => --preCount);
         }, 1000);
         if (count === 0) {
-            navigate("/login");
+            const isAuthorized = "no";
+            navigate("/?isAuthorized=" + encodeURIComponent(isAuthorized));
         }
         return () => clearInterval(interval);
     }, [count, navigate]);

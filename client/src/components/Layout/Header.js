@@ -22,11 +22,11 @@ function Header() {
         setAuth({
             ...auth,
             user: null,
-            token: ""
-        })
-        localStorage.removeItem('auth')
-        toast.success('Logout Successfully')
-    }
+            token: "",
+        });
+        localStorage.removeItem("auth");
+        toast.success("Logout Successfully");
+    };
 
     return (
         <header className="header">
@@ -127,11 +127,16 @@ function Header() {
                                         </Dropdown.Item>
                                     </>
                                 ) : (
-                                    <>
-                                        <Dropdown.Item href="/login" onClick={handleLogout}>
+                                    <div>
+                                        <Dropdown.Item href="/dashboard">
+                                            Dashboard
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            href="/login"
+                                            onClick={handleLogout}>
                                             Logout
                                         </Dropdown.Item>
-                                    </>
+                                    </div>
                                 )}
                             </Dropdown.Menu>
                         </Dropdown>
