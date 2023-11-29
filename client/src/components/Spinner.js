@@ -10,10 +10,7 @@ function Spinner() {
         const interval = setInterval(() => {
             setCount((preCount) => --preCount);
         }, 1000);
-        if (count === 0) {
-            const isAuthorized = "no";
-            navigate("/?isAuthorized=" + encodeURIComponent(isAuthorized));
-        }
+
         return () => clearInterval(interval);
     }, [count, navigate]);
 

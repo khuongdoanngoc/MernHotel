@@ -128,9 +128,15 @@ function Header() {
                                     </>
                                 ) : (
                                     <div>
-                                        <Dropdown.Item href="/dashboard">
-                                            Dashboard
-                                        </Dropdown.Item>
+                                        {auth.user.role === 1 ? (
+                                            <Dropdown.Item href="/admin/dashboard">
+                                                Dashboard
+                                            </Dropdown.Item>
+                                        ) : (
+                                            <Dropdown.Item href="/user/dashboard">
+                                                Dashboard
+                                            </Dropdown.Item>
+                                        )}
                                         <Dropdown.Item
                                             href="/login"
                                             onClick={handleLogout}>

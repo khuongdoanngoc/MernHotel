@@ -10,7 +10,7 @@ function Home() {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const dataReceived = urlSearchParams.get("isAuthorized");
         if (dataReceived === "no") {
-            toast.warning("No Authorized!");
+            toast.warning("Unauthorized!");
         }
     }, []);
 

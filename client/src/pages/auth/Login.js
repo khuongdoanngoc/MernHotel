@@ -1,7 +1,7 @@
 import "../../styles/authStyles/login.css";
 import Layout from "../../components/Layout/Layout";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
@@ -13,8 +13,6 @@ function Login() {
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
 
-
-
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -24,6 +22,7 @@ function Login() {
                 password,
             };
             const res = await axios.post(loginURL, data);
+            console.log(res.data.user.role)
             if (res.data.success) {
                 toast.success(res.data.message);
                 // set token
@@ -32,7 +31,7 @@ function Login() {
                     user: res.data.user,
                     token: res.data.token,
                 });
-                localStorage.setItem('auth', JSON.stringify(res.data));
+                localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate("/");
             } else {
                 toast.error(res.data.message);
@@ -83,7 +82,9 @@ function Login() {
                             </div>
                         </div>
                         <div className="login-third-party">
-                            <a className="login-social" href="#oauth2-google">
+                            <a
+                                className="login-social"
+                                href="/federated/google">
                                 <button>
                                     <i
                                         className="bi bi-google"
@@ -118,8 +119,7 @@ function Login() {
                         <button
                             className="login-submit-button"
                             type="submit"
-                            onClick={handleLoginSubmit}
-                            >
+                            onClick={handleLoginSubmit}>
                             <span>Login</span>
                         </button>
                         <a className="login-submit-register" href="/register">

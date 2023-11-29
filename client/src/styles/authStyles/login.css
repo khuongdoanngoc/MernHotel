@@ -102,3 +102,30 @@
 .login-forgot-password:hover {
     box-shadow: none !important;
 }
+
+.roles-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 122px;
+}
+
+.roles-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.radio-roles:focus {
+    box-shadow: none !important;
+}
+
+.radio-roles {
+    cursor: pointer;
+}
+
+.radio-roles:checked {
+    accent-color: black;
+}
+

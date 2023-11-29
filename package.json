@@ -30,6 +30,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
     "nodemon": "^3.0.1",
+    "passport": "^0.6.0",
+    "passport-google-oidc": "^0.1.0",
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.3"
   }

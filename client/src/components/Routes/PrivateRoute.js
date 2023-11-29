@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Spinner from "../Spinner";
 import axios from "axios";
 
 function PrivateRoute() {
     const [ok, setOk] = useState(false);
     const [auth] = useAuth();
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const authCheck = async () => {
             try {
+                
                 const res = await axios.get(
                     `${process.env.REACT_APP_API}/api/v1/auth/user-auth`,
                     {
@@ -25,7 +28,9 @@ function PrivateRoute() {
                     setOk(false);
                 }
             } catch (error) {
-                console.log('auth check error: ', error)
+                console.log("auth check error: ", error);
+            } finally {
+                setLoading(false);
             }
         };
         if (auth && auth.token) {
@@ -33,7 +38,17 @@ function PrivateRoute() {
         }
     }, [auth.token]);
 
-    return ok ? <Outlet /> : <Spinner />;
+    if (loading) {
+        return <Spinner />;
+    } else {
+        if (ok) {
+            return <Outlet />;
+        } else {
+            const isAuthorized = "no";
+            navigate(`/?isAuthorized=` + encodeURIComponent(isAuthorized));
+            return null;
+        }
+    }
 }
 
 export default PrivateRoute;

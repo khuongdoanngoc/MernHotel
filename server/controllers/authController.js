@@ -78,7 +78,7 @@ const login = async (req, res) => {
         if (!email || !password) {
             res.status(404).send({
                 success: false,
-                message: "Wrong email or password",
+                message: "Email or Password Incorrect!",
             });
         }
 
@@ -87,7 +87,7 @@ const login = async (req, res) => {
         if (!result) {
             return res.status(404).send({
                 success: false,
-                message: "Wrong email",
+                message: "Email Incorrect!",
             });
         }
 
@@ -96,7 +96,7 @@ const login = async (req, res) => {
         if (!isMatched) {
             return res.status(404).send({
                 success: false,
-                message: "Wrong Password",
+                message: "Password Incorrect!",
             });
         }
 

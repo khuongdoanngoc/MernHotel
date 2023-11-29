@@ -5,7 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/user/Dashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import PrivateRoute from "./components/Routes/PrivateRoute";
+import AdminRoute from "./components/Routes/AdminRoute";
 
 function App() {
     return (
@@ -14,8 +16,11 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<PrivateRoute />}>
-                <Route path="" element={<Dashboard />} />
+            <Route path="/user" element={<PrivateRoute />}>
+                <Route path="dashboard" element={<Dashboard />} />
+            </Route>
+            <Route path="/admin" element={<AdminRoute />}>
+                <Route path="dashboard" element={<AdminDashboard />} />
             </Route>
         </Routes>
     );

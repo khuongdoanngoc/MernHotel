@@ -13,6 +13,7 @@ function Register() {
     const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [role, setRole] = useState("customer");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -25,9 +26,12 @@ function Register() {
                 password,
                 phone,
                 address,
+                role,
             };
             if (confirmPassword !== data.password) {
-                return toast.error('Password and confirm password do not match!')
+                return toast.error(
+                    "Password and confirm password do not match!"
+                );
             }
             const res = await axios.post(registerURL, data);
             if (res.data.success) {

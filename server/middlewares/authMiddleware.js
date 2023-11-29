@@ -25,7 +25,7 @@ const isAdmin = async (req, res, next) => {
     if (userDb.role !== 1) {
         return res.status(401).send({
             success: false,
-            message: 'No Authorization!'
+            message: 'Unauthorized Access!'
         })
     }
     next();
