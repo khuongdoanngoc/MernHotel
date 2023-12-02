@@ -15,6 +15,10 @@ function Login() {
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
+        if (!email || !password) {
+            toast.warning("Please enter both username and password.");
+            return;
+        }
         try {
             const loginURL = `${process.env.REACT_APP_API}/api/v1/auth/login`;
             const data = {
@@ -22,7 +26,7 @@ function Login() {
                 password,
             };
             const res = await axios.post(loginURL, data);
-            console.log(res.data.user.role)
+            // console.log(res.data.user.role)
             if (res.data.success) {
                 toast.success(res.data.message);
                 // set token
@@ -37,12 +41,11 @@ function Login() {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            console.log(error);
             if (!error.response.data.success) {
                 const message = error.response.data.message;
                 toast.error(message);
             } else {
-                toast.error("Failure Registation!");
+                toast.error("Failure Login!");
             }
         }
     };
@@ -52,7 +55,7 @@ function Login() {
             <div className="login">
                 <h2 className="login-title">Login</h2>
                 <hr />
-                <form>
+                <form onSubmit={handleLoginSubmit}>
                     <div className="login-row">
                         <div className="login-normally">
                             <div className="login-email-address">
@@ -63,6 +66,7 @@ function Login() {
                                     placeholder="Please enter your email"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
+                                    required
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
@@ -75,6 +79,7 @@ function Login() {
                                     aria-label="password"
                                     aria-describedby="basic-addon1"
                                     type="password"
+                                    required
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }
@@ -84,7 +89,11 @@ function Login() {
                         <div className="login-third-party">
                             <a
                                 className="login-social"
-                                href="/federated/google">
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.location.href = `${process.env.REACT_APP_API}/api/v1/auth/google`
+                                }}>
                                 <button>
                                     <i
                                         className="bi bi-google"
@@ -98,7 +107,12 @@ function Login() {
                                     </span>
                                 </button>
                             </a>
-                            <a className="login-social" href="#oath2-facebook">
+                            <a
+                                className="login-social"
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                }}>
                                 <button>
                                     <i
                                         className="bi bi-facebook"

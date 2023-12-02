@@ -14,20 +14,33 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
     },
     phone: {
         type: String,
-        required: true,
+        // required: true,
     },
     address: {
         type: String,
-        required: true,
+        // required: true,
     },
     role: {
         type: Number,
         enum: [1, 0],
         required: true,
+    },
+    authType: {
+        type: String,
+        enum: ["local", "google", "facebook"],
+        required: true
+    },
+    authGoogleId: {
+        type: String,
+        default: null,
+    },
+    authFacebookId: {
+        type: String,
+        default: null,
     },
 });
 

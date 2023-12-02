@@ -6,6 +6,7 @@ const JWT = require("jsonwebtoken");
 const register = async (req, res) => {
     try {
         const newUserData = req.body;
+        newUserData.role = 0;
         // validate required: true
         {
             const { name, email, password, phone, address } = newUserData;
@@ -63,7 +64,7 @@ const register = async (req, res) => {
             user: user,
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
             message: "Error in register",
@@ -123,6 +124,19 @@ const login = async (req, res) => {
     }
 };
 
+const authGoogle = async (req, res, next) => {
+    const payload = { ...req.user };
+    const token = JWT.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+    });
+    console.log(token);
+    res.send(req.user);
+    // res.redirect(`http://localhost:8080/login/success?token=${token}`)
+    // từ đây truyền qua login success kèm token, bên controller của cái redirected thì trả status cho fe fetch api là xong!
+};
+
+const authFacebook = async (req, res, next) => {};
+
 const secret = async (req, res, next) => {
     res.send("secret called!");
 };
@@ -130,5 +144,7 @@ const secret = async (req, res, next) => {
 module.exports = {
     register,
     login,
+    authGoogle,
+    authFacebook,
     secret,
 };
