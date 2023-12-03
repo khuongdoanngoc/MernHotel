@@ -1,7 +1,7 @@
 import "../../styles/authStyles/login.css";
 import Layout from "../../components/Layout/Layout";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
@@ -26,7 +26,6 @@ function Login() {
                 password,
             };
             const res = await axios.post(loginURL, data);
-            // console.log(res.data.user.role)
             if (res.data.success) {
                 toast.success(res.data.message);
                 // set token
@@ -48,6 +47,10 @@ function Login() {
                 toast.error("Failure Login!");
             }
         }
+    };
+
+    const handleServiceLogin = async (service) => {
+        window.location.href = `${process.env.REACT_APP_API}/api/v1/auth/${service}`;
     };
 
     return (
@@ -92,7 +95,7 @@ function Login() {
                                 href="#"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    window.location.href = `${process.env.REACT_APP_API}/api/v1/auth/google`
+                                    handleServiceLogin("google");
                                 }}>
                                 <button>
                                     <i

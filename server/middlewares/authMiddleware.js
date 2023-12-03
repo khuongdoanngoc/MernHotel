@@ -6,7 +6,7 @@ const requireLogin = async (req, res, next) => {
         // verify token from header authorization
         const authHeader = req.headers.authorization
         if (!authHeader) {
-            res.status(401).send({
+            return res.status(401).send({
                 success: false,
                 message: 'No Auth Token'
             })

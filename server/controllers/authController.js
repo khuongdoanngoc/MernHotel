@@ -125,17 +125,36 @@ const login = async (req, res) => {
 };
 
 const authGoogle = async (req, res, next) => {
-    const payload = { ...req.user };
+    const user = req.user;
+    const payload = { _id: req.user._id };
     const token = JWT.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "7d",
     });
-    console.log(token);
-    res.send(req.user);
-    // res.redirect(`http://localhost:8080/login/success?token=${token}`)
-    // từ đây truyền qua login success kèm token, bên controller của cái redirected thì trả status cho fe fetch api là xong!
+    res.redirect(
+        `http://localhost:3000/login/success?token=${token}`
+    );
 };
 
 const authFacebook = async (req, res, next) => {};
+
+const getUser = async (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).send({
+            success: false,
+            message: "No Auth Token",
+        });
+    }
+    const token = authHeader.split(" ")[1];
+    const decoded = await JWT.verify(token, process.env.JWT_SECRET);
+    const _id = decoded._id
+    const user = await userModel.findById(_id);
+    res.status(200).send({
+        success: true,
+        message: 'get user success',
+        user
+    });
+};
 
 const secret = async (req, res, next) => {
     res.send("secret called!");
@@ -146,5 +165,6 @@ module.exports = {
     login,
     authGoogle,
     authFacebook,
+    getUser,
     secret,
 };

@@ -13,7 +13,7 @@ function PrivateRoute() {
     useEffect(() => {
         const authCheck = async () => {
             try {
-                
+                console.log(auth)
                 const res = await axios.get(
                     `${process.env.REACT_APP_API}/api/v1/auth/user-auth`,
                     {
@@ -22,6 +22,7 @@ function PrivateRoute() {
                         },
                     }
                 );
+                console.log('res data: ', res.data)
                 if (res.data.ok) {
                     setOk(true);
                 } else {
@@ -39,6 +40,7 @@ function PrivateRoute() {
     }, [auth.token]);
 
     if (loading) {
+        console.log('loading...')
         return <Spinner />;
     } else {
         if (ok) {

@@ -8,6 +8,8 @@ import Dashboard from "./pages/user/Dashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import AdminRoute from "./components/Routes/AdminRoute";
+import LoginSuccess from "./utils/LoginSuccess";
+
 
 function App() {
     return (
@@ -16,6 +18,7 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/login/success" element={<LoginSuccess />} />
             <Route path="/user" element={<PrivateRoute />}>
                 <Route path="dashboard" element={<Dashboard />} />
             </Route>

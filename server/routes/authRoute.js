@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 require("../configs/passport");
+const JWT = require("jsonwebtoken");
 
 // controllers import
 const {
@@ -9,6 +10,7 @@ const {
     login,
     authGoogle,
     authFacebook,
+    getUser,
     secret,
 } = require("../controllers/authController");
 
@@ -18,14 +20,6 @@ const { requireLogin, isAdmin } = require("../middlewares/authMiddleware");
 // authentication
 router.post("/register", register);
 router.post("/login", login);
-
-router.get('/login/success', async (req, res) => {
-    
-})
-router.get('/login/failure', (req, res) => {
-    
-})
-
 
 router.get(
     "/google",
@@ -50,6 +44,8 @@ router.get("/user-auth", requireLogin, (req, res) => {
 router.get("/admin-auth", requireLogin, isAdmin, (req, res) => {
     res.status(200).send({ ok: true });
 });
+
+router.get("/secret/get-user", requireLogin, getUser);
 
 router.get("/secret", requireLogin, isAdmin, secret);
 
