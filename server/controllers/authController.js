@@ -113,7 +113,7 @@ const login = async (req, res) => {
             success: true,
             message: "Login Successfully",
             user: result,
-            token,
+            token
         });
     } catch (error) {
         res.status(500).send({

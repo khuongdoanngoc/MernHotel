@@ -8,7 +8,7 @@ const requireLogin = async (req, res, next) => {
         if (!authHeader) {
             return res.status(401).send({
                 success: false,
-                message: 'No Auth Token'
+                message: 'Please login to use this function'
             })
         }
 
@@ -25,7 +25,7 @@ const isAdmin = async (req, res, next) => {
     if (userDb.role !== 1) {
         return res.status(401).send({
             success: false,
-            message: 'Unauthorized Access!'
+            message: 'Unauthorized!'
         })
     }
     next();

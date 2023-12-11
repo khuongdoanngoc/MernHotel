@@ -18,14 +18,15 @@ function Header() {
     const handleCloseRight = () => setShowRight(false);
     const handleShowRight = () => setShowRight(true);
 
+
     const handleLogout = () => {
+        toast.success("Logout Successfully");
         setAuth({
             ...auth,
             user: null,
             token: "",
         });
         localStorage.removeItem("auth");
-        toast.success("Logout Successfully");
     };
 
     return (

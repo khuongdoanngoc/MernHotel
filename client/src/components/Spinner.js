@@ -1,29 +1,38 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HashLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import Layout from "./Layout/Layout";
 
 function Spinner() {
-    const [count, setCount] = useState(3);
+    const [count, setCount] = useState(4);
     const navigate = useNavigate();
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount((preCount) => --preCount);
+            setCount((prevCount) => --prevCount);
         }, 1000);
-
-        return () => clearInterval(interval);
+        if (count == 0) {
+            toast.error("Unauthorized!");
+            navigate("/");
+        }
+        return () => {
+            clearInterval(interval);
+        };
     }, [count, navigate]);
 
     return (
-        <div
-            style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "90vh",
-            }}>
-            <HashLoader color="#24292e" />
-        </div>
+        <Layout>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "58vh",
+                }}>
+                <HashLoader color="#24292e" />
+            </div>
+        </Layout>
     );
 }
 

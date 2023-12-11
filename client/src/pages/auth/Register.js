@@ -51,6 +51,10 @@ function Register() {
         }
     };
 
+    const handleServiceLogin = async (service) => {
+        window.location.href = `${process.env.REACT_APP_API}/api/v1/auth/${service}`;
+    };
+
     return (
         <Layout>
             <div className="login">
@@ -127,22 +131,41 @@ function Register() {
                             </div>
                         </div>
                         <div className="login-third-party">
-                            <a className="login-social" href="#oauth2-google">
-                                <button>
+                            <a
+                                className="login-social"
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleServiceLogin("google");
+                                }}>
+                                <button type="button">
                                     <i
                                         className="bi bi-google"
                                         style={{ fontSize: "30px" }}></i>
-                                    <span style={{ fontSize: "20px" }}>
+                                    <span
+                                        style={{
+                                            fontSize: "20px",
+                                            fontFamily: "Poppins",
+                                        }}>
                                         Login with Google
                                     </span>
                                 </button>
                             </a>
-                            <a className="login-social" href="#oath2-facebook">
+                            <a
+                                className="login-social"
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                }}>
                                 <button>
                                     <i
                                         className="bi bi-facebook"
                                         style={{ fontSize: "30px" }}></i>
-                                    <span style={{ fontSize: "20px" }}>
+                                    <span
+                                        style={{
+                                            fontSize: "20px",
+                                            fontFamily: "Poppins",
+                                        }}>
                                         Login with Facebook
                                     </span>
                                 </button>

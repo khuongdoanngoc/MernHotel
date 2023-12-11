@@ -34,6 +34,7 @@ function Login() {
                     user: res.data.user,
                     token: res.data.token,
                 });
+                res.data.user.password = "";
                 localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate("/");
             } else {
@@ -52,6 +53,8 @@ function Login() {
     const handleServiceLogin = async (service) => {
         window.location.href = `${process.env.REACT_APP_API}/api/v1/auth/${service}`;
     };
+
+
 
     return (
         <Layout>
@@ -96,8 +99,9 @@ function Login() {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleServiceLogin("google");
-                                }}>
-                                <button>
+                                }}
+                                >
+                                <button type="button">
                                     <i
                                         className="bi bi-google"
                                         style={{ fontSize: "30px" }}></i>
@@ -136,7 +140,8 @@ function Login() {
                         <button
                             className="login-submit-button"
                             type="submit"
-                            onClick={handleLoginSubmit}>
+                            onClick={handleLoginSubmit}
+                            >
                             <span>Login</span>
                         </button>
                         <a className="login-submit-register" href="/register">

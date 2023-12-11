@@ -1,18 +1,13 @@
 import { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
-import { toast } from "react-toastify";
 
 function Home() {
     const [auth] = useAuth();
 
     useEffect(() => {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const dataReceived = urlSearchParams.get("isAuthorized");
-        if (dataReceived === "no") {
-            toast.warning("Unauthorized!");
-        }
-    }, []);
+        console.log('auth in login: ', auth)
+    }, [auth])
 
     return (
         <div>

@@ -39,10 +39,10 @@ router.get(
 
 // authorization
 router.get("/user-auth", requireLogin, (req, res) => {
-    res.status(200).send({ ok: true });
+    res.status(200).send({ success: true });
 });
 router.get("/admin-auth", requireLogin, isAdmin, (req, res) => {
-    res.status(200).send({ ok: true });
+    res.status(200).send({ success: true });
 });
 
 router.get("/secret/get-user", requireLogin, getUser);
