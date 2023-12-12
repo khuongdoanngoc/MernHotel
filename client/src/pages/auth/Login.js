@@ -34,8 +34,12 @@ function Login() {
                     user: res.data.user,
                     token: res.data.token,
                 });
-                res.data.user.password = "";
-                localStorage.setItem("auth", JSON.stringify(res.data));
+                delete res.data.user['password']
+                const authToken = {
+                    token: res.data.token,
+                    user: res.data.user
+                }
+                localStorage.setItem("auth", JSON.stringify(authToken));
                 navigate("/");
             } else {
                 toast.error(res.data.message);

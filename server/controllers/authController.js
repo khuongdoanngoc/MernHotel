@@ -113,7 +113,7 @@ const login = async (req, res) => {
             success: true,
             message: "Login Successfully",
             user: result,
-            token
+            token,
         });
     } catch (error) {
         res.status(500).send({
@@ -125,14 +125,11 @@ const login = async (req, res) => {
 };
 
 const authGoogle = async (req, res, next) => {
-    const user = req.user;
     const payload = { _id: req.user._id };
-    const token = JWT.sign(payload, process.env.JWT_SECRET, {
+    const token = await JWT.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "7d",
     });
-    res.redirect(
-        `http://localhost:3000/login/success?token=${token}`
-    );
+    res.redirect(`http://localhost:3000/login/success?token=${token}`);
 };
 
 const authFacebook = async (req, res, next) => {};
@@ -147,12 +144,12 @@ const getUser = async (req, res) => {
     }
     const token = authHeader.split(" ")[1];
     const decoded = await JWT.verify(token, process.env.JWT_SECRET);
-    const _id = decoded._id
+    const _id = decoded._id;
     const user = await userModel.findById(_id);
     res.status(200).send({
         success: true,
-        message: 'get user success',
-        user
+        message: "get user success",
+        user,
     });
 };
 

@@ -24,12 +24,10 @@ function LoginSuccess() {
                 );
                 if (!res.data.success) {
                     toast.error("No Auth Token");
-                    return;
+                    navigate('/')
                 }
                 const user = res.data.user
                 const authStored = {
-                    success: true,
-                    message: "Login Successfully",
                     token,
                     user,
                 };
@@ -39,7 +37,7 @@ function LoginSuccess() {
                     user,
                     token,
                 });
-                toast.success(authStored.message);
+                toast.success('Login Successfully!');
                 navigate("/");
             } catch (error) {
                 console.log("error get user: ", error);
