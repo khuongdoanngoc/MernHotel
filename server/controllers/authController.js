@@ -132,7 +132,13 @@ const authGoogle = async (req, res, next) => {
     res.redirect(`http://localhost:3000/login/success?token=${token}`);
 };
 
-const authFacebook = async (req, res, next) => {};
+const authFacebook = async (req, res, next) => {
+    const payload = { _id: req.user._id };
+    const token = await JWT.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+    });
+    res.redirect(`http://localhost:3000/login/success?token=${token}`);
+};
 
 const getUser = async (req, res) => {
     const authHeader = req.headers.authorization;

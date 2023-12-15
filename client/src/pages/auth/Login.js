@@ -123,7 +123,9 @@ function Login() {
                                 href="#"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                }}>
+                                    handleServiceLogin("facebook");
+                                }}
+                                >
                                 <button>
                                     <i
                                         className="bi bi-facebook"

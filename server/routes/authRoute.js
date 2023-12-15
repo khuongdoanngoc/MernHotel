@@ -21,6 +21,7 @@ const { requireLogin, isAdmin } = require("../middlewares/authMiddleware");
 router.post("/register", register);
 router.post("/login", login);
 
+// google authentication
 router.get(
     "/google",
     passport.authenticate("google", {
@@ -37,6 +38,23 @@ router.get(
     authGoogle
 );
 
+// facebook authentication
+router.get(
+    "/facebook",
+    passport.authenticate("facebook", {
+        session: false,
+    })
+);
+
+router.get(
+    "/facebook/callback",
+    passport.authenticate("facebook", {
+        failureRedirect: "login",
+        session: false,
+    }),
+    authFacebook
+);
+
 // authorization
 router.get("/user-auth", requireLogin, (req, res) => {
     res.status(200).send({ success: true });
@@ -47,6 +65,6 @@ router.get("/admin-auth", requireLogin, isAdmin, (req, res) => {
 
 router.get("/secret/get-user", requireLogin, getUser);
 
-router.get("/secret", requireLogin, isAdmin, secret);
+router.post("/secret", secret);
 
 module.exports = router;
