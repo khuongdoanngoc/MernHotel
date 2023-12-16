@@ -11,7 +11,9 @@ const {
     authGoogle,
     authFacebook,
     getUser,
+    resetPassword,
     secret,
+    verifyCode,
 } = require("../controllers/authController");
 
 // middlewares import
@@ -54,6 +56,10 @@ router.get(
     }),
     authFacebook
 );
+
+// reset password
+router.post("/reset-password", resetPassword);
+router.post("/verify-code", verifyCode);
 
 // authorization
 router.get("/user-auth", requireLogin, (req, res) => {

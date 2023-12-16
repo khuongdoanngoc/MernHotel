@@ -30,6 +30,7 @@ passport.use(
                     role: 0,
                     name: profile.name.familyName,
                     email: profile.emails[0].value,
+                    password: ""
                 });
                 await newUser.save();
                 return cb(null, newUser);

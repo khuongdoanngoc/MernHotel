@@ -1,12 +1,19 @@
-const { hashPassword, comparePassword } = require("../helpers/authHelper");
+const {
+    hashPassword,
+    comparePassword,
+    generateCode,
+} = require("../helpers/authHelper");
+const { sendResetPasswordEmail } = require("../configs/nodemailer");
 const userModel = require("../models/usersModel");
 
 const JWT = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const register = async (req, res) => {
     try {
         const newUserData = req.body;
         newUserData.role = 0;
+        newUserData.authType = 'local'
         // validate required: true
         {
             const { name, email, password, phone, address } = newUserData;
@@ -159,6 +166,55 @@ const getUser = async (req, res) => {
     });
 };
 
+let resetCode;
+const resetPassword = async (req, res) => {
+    // check if not exist email
+    const isExist = await userModel.findOne({ email: req.body.email });
+    if (!isExist) {
+        return res.status(401).send({
+            success: false,
+            message: "No user found for this email!",
+        });
+    }
+    const info = {
+        _id: isExist._id,
+        email: isExist.email,
+    };
+    const code = generateCode();
+    resetCode = code;
+    sendResetPasswordEmail(req.body.email, code);
+    res.status(200).send({
+        success: true,
+        message: "Send mail successfully!",
+        info,
+    });
+};
+
+const verifyCode = async (req, res) => {
+    const codeFromUser = req.body.code;
+    const isMatched = codeFromUser == resetCode;
+    if (!isMatched) {
+        return res.status(400).send({
+            success: false,
+            message: "Code Is Incorrect!",
+        });
+    }
+    const payload = {
+        _id: req.body._id,
+    };
+    const token = await JWT.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+    });
+    const userData = await userModel.findById(req.body._id)
+    delete userData.password
+    res.status(200).send({
+        success: true,
+        message: "Verified!",
+        token,
+        user: userData
+    });
+};
+
 const secret = async (req, res, next) => {
     res.send("secret called!");
 };
@@ -169,5 +225,7 @@ module.exports = {
     authGoogle,
     authFacebook,
     getUser,
+    resetPassword,
+    verifyCode,
     secret,
 };

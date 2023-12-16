@@ -10,11 +10,18 @@ const hashPassword = async (password) => {
     }
 }
 
+const generateCode = () => {
+    const min = 1000
+    const max = 9999
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 const comparePassword = async (password, hashedPassword) => {
     return bcrypt.compare(password, hashedPassword);
 }
 
 module.exports = {
     hashPassword,
-    comparePassword
+    comparePassword,
+    generateCode
 }

@@ -13,7 +13,6 @@ function Register() {
     const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [role, setRole] = useState("customer");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -26,7 +25,6 @@ function Register() {
                 password,
                 phone,
                 address,
-                role,
             };
             if (confirmPassword !== data.password) {
                 return toast.error(
@@ -185,7 +183,7 @@ function Register() {
                         </a>
                         <a
                             className="login-forgot-password"
-                            href="/auth/password-retrieval">
+                            href="/forgot-password">
                             Forgot Password?
                         </a>
                     </div>

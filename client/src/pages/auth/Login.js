@@ -155,7 +155,7 @@ function Login() {
                         </a>
                         <a
                             className="login-forgot-password"
-                            href="/auth/password-retrieval">
+                            href="/forgot-password">
                             Forgot Password?
                         </a>
                     </div>

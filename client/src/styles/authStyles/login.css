@@ -129,3 +129,10 @@
     accent-color: black;
 }
 
+.expired-coutdown {
+    margin-top: 10px;
+}
+
+.expired-coutdown span {
+    color: cornflowerblue;
+}
