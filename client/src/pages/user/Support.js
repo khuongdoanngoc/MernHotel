@@ -1,18 +1,18 @@
-import Layout from "../../components/Layout/Layout";
-import "./styles.css";
 import DashboardMenu from "../../components/Layout/DashboardMenu";
+import Layout from "../../components/Layout/Layout";
 
-function Dashboard() {
-    return (
+
+function Supports() {
+    return ( 
         <Layout>
             <div className="user-dashboard-wrapper">
                 <DashboardMenu/>
                 <div className="user-dashboard-content">
-                    <h1>Account Details</h1>
+                    <h1>Support</h1>
                 </div>
             </div>
         </Layout>
-    );
+     );
 }
 
-export default Dashboard;
+export default Supports;
