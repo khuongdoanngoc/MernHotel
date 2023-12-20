@@ -29,15 +29,6 @@ function AdminDashboardMenu() {
                             Account Security
                         </td>
                     </tr>
-                    <tr className="menu-product">
-                        <td
-                            style={{ display: "block" }}
-                            onClick={() =>
-                                navigate("/admin/dashboard/product")
-                            }>
-                            Products
-                        </td>
-                    </tr>
                     <tr className="menu-category">
                         <td
                             style={{ display: "block" }}
@@ -47,11 +38,13 @@ function AdminDashboardMenu() {
                             Categories
                         </td>
                     </tr>
-                    <tr className="menu-brand">
+                    <tr className="menu-product">
                         <td
                             style={{ display: "block" }}
-                            onClick={() => navigate("/admin/dashboard/brand")}>
-                            Brands
+                            onClick={() =>
+                                navigate("/admin/dashboard/product")
+                            }>
+                            Products
                         </td>
                     </tr>
                     <tr className="menu-user">

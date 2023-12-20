@@ -1,5 +1,6 @@
 import Layout from "../../components/Layout/Layout";
 import "../user/styles.css";
+import "./styles.css"
 import AdminDashboardMenu from "../../components/Layout/AdminDashboardMenu";
 
 function AccountSecurity() {

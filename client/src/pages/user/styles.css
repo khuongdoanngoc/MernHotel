@@ -14,8 +14,7 @@
 .user-dashboard-content {
     margin-left: 20px;
     width: 75%;
-    height: 100px;
-    /* background-color: violet; */
+    margin-bottom: 20px;
 }
 
 td,

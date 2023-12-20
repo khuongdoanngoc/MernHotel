@@ -215,6 +215,31 @@ const verifyCode = async (req, res) => {
     });
 };
 
+const updateAuth = async (req, res) => {
+    if (!req.body.name) {
+        return res.status(403).send({
+            success: true,
+            message: 'Name is required!'
+        })
+    }
+    try {
+        let user = await userModel.findByIdAndUpdate(req.user._id, req.body)
+        user = await userModel.findById(req.user._id)
+        res.status(201).send({
+            success: true,
+            message: 'Update Info Successfully!',
+            token: req.user.token,
+            user,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: 'Server error in update auth!'
+        })
+    } 
+}
+
 const secret = async (req, res, next) => {
     res.send("secret called!");
 };
@@ -227,5 +252,6 @@ module.exports = {
     getUser,
     resetPassword,
     verifyCode,
+    updateAuth,
     secret,
 };

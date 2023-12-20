@@ -16,6 +16,7 @@ const requireLogin = async (req, res, next) => {
 
         const decoded = await JWT.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
+        req.user.token = token
         next()
     } catch (error) {}
 };

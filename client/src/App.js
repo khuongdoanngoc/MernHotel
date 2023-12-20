@@ -55,10 +55,6 @@ function App() {
                     element={<AdminItems.AccountSecurity />}
                 />
                 <Route
-                    path="dashboard/brand"
-                    element={<AdminItems.Brands />}
-                />
-                <Route
                     path="dashboard/category"
                     element={<AdminItems.Categories />}
                 />

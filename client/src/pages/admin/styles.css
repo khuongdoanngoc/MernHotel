@@ -1,0 +1,31 @@
+.dashboard-title {
+    font-size: 1.4em!important;
+    font-weight: 600;
+}
+
+.user-dashboard-content {
+    margin-left: 40px;
+}
+
+.dashboard-user-info {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.custom-rectangle {
+    position: relative;
+    width: 70px;
+    height: 30px;
+    background-color: rgb(0 0 0 / 8%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-info-inputs {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

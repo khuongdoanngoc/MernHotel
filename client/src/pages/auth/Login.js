@@ -1,4 +1,4 @@
-import "../../styles/authStyles/login.css";
+import "./login.css"
 import Layout from "../../components/Layout/Layout";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
@@ -126,7 +126,7 @@ function Login() {
                                     handleServiceLogin("facebook");
                                 }}
                                 >
-                                <button>
+                                <button type="button">
                                     <i
                                         className="bi bi-facebook"
                                         style={{ fontSize: "30px" }}></i>

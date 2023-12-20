@@ -7,7 +7,7 @@ function Categories() {
             <div className="user-dashboard-wrapper">
                 <AdminDashboardMenu/>
                 <div className="user-dashboard-content">
-                    <h1>Categories</h1>
+                    <h2 className="dashboard-title">Categories</h2>
                 </div>
             </div>
         </Layout>
