@@ -1,17 +1,18 @@
-import AdminDashboardMenu from "../../components/Layout/AdminDashboardMenu";
 import Layout from "../../components/Layout/Layout";
+import "./styles.css";
+import UserDashboardMenu from "../../components/Layout/UserDashboardMenu";
 
-function Products() {
+function AccountSecurity() {
     return (
         <Layout>
             <div className="user-dashboard-wrapper">
-                <AdminDashboardMenu />
+                <UserDashboardMenu/>
                 <div className="user-dashboard-content">
-                    <h1>Products</h1>
+                    <h1>AccountSecurity</h1>
                 </div>
             </div>
         </Layout>
     );
 }
 
-export default Products;
+export default AccountSecurity;

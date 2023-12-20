@@ -25,14 +25,7 @@ th {
 }
 
 thead {
-    border-top: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 1px solid black;
-    border-left: 2px solid black;
-}
-
-tbody {
-    border: 1px solid black;
+    border: 1px solid #868b8f;
 }
 
 tr {
@@ -40,12 +33,20 @@ tr {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 279px;
-    border-left: 1px black !important;
+    width: 280px;
+}
+
+/* ở path nào thì bôi màu lên đó ở đây */
+tr :focus {
+    background-color: violet !important;
+}
+
+td {
+    cursor: pointer;
 }
 
 .dashboard-custom-link {
-    width: 279px;
+    width: 280px;
     height: 41px;
     justify-content: center;
     align-items: center;

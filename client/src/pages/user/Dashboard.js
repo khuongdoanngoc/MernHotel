@@ -1,12 +1,12 @@
 import Layout from "../../components/Layout/Layout";
 import "./styles.css";
-import DashboardMenu from "../../components/Layout/DashboardMenu";
+import UserDashboardMenu from "../../components/Layout/UserDashboardMenu";
 
 function Dashboard() {
     return (
         <Layout>
             <div className="user-dashboard-wrapper">
-                <DashboardMenu/>
+                <UserDashboardMenu/>
                 <div className="user-dashboard-content">
                     <h1>Account Details</h1>
                 </div>

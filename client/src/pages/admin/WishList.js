@@ -1,18 +1,17 @@
-import DashboardMenu from "../../components/Layout/DashboardMenu";
+import AdminDashboardMenu from "../../components/Layout/AdminDashboardMenu";
 import Layout from "../../components/Layout/Layout";
 
-
-function Supports() {
-    return ( 
+function WishList() {
+    return (
         <Layout>
             <div className="user-dashboard-wrapper">
-                <DashboardMenu/>
+                <AdminDashboardMenu />
                 <div className="user-dashboard-content">
-                    <h1>Support</h1>
+                    <h1>WishList</h1>
                 </div>
             </div>
         </Layout>
-     );
+    );
 }
 
-export default Supports;
+export default WishList;

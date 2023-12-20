@@ -1,17 +1,17 @@
-import AdminDashboardMenu from "../../components/Layout/AdminDashboardMenu";
+import UserDashboardMenu from "../../components/Layout/UserDashboardMenu";
 import Layout from "../../components/Layout/Layout";
 
-function Products() {
-    return (
+function Supports() {
+    return ( 
         <Layout>
             <div className="user-dashboard-wrapper">
-                <AdminDashboardMenu />
+                <UserDashboardMenu/>
                 <div className="user-dashboard-content">
-                    <h1>Products</h1>
+                    <h1>Support</h1>
                 </div>
             </div>
         </Layout>
-    );
+     );
 }
 
-export default Products;
+export default Supports;
