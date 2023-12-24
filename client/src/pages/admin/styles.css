@@ -29,3 +29,8 @@
     flex-direction: column;
     gap: 15px;
 }
+
+.security-function {
+    font-size: 1.2rem !important;
+    font-weight: 500;
+}

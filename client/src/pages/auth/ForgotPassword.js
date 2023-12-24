@@ -72,9 +72,7 @@ function ForgotPassword() {
                     user: data.user
                 }
                 localStorage.setItem("auth", JSON.stringify(authToken));
-                // temporary
-                navigate('/')
-                // navigate("/user/change-password");
+                navigate(`/user/dashboard/security?permissionCode=${data.resetCode}`);
             }
         } catch (error) {
             if (!error.response.data.success) {

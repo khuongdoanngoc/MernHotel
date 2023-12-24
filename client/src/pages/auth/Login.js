@@ -99,7 +99,7 @@ function Login() {
                         <div className="login-third-party">
                             <a
                                 className="login-social"
-                                href="#"
+                                href="/"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleServiceLogin("google");
@@ -120,7 +120,7 @@ function Login() {
                             </a>
                             <a
                                 className="login-social"
-                                href="#"
+                                href="/"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleServiceLogin("facebook");

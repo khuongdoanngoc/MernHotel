@@ -15,6 +15,7 @@ const {
     secret,
     verifyCode,
     updateAuth,
+    changePassword,
 } = require("../controllers/authController");
 
 // middlewares import
@@ -63,7 +64,10 @@ router.post("/reset-password", resetPassword);
 router.post("/verify-code", verifyCode);
 
 // update info auth
-router.put('/update', requireLogin, updateAuth);
+router.patch('/update', requireLogin, updateAuth);
+
+// change password
+router.post('/change-password', requireLogin, changePassword)
 
 // authorization
 router.get("/user-auth", requireLogin, (req, res) => {

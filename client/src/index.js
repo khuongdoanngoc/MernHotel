@@ -13,7 +13,7 @@ root.render(
     <AuthProvider>
         <BrowserRouter>
             <App />
-            <ToastContainer theme="dark" autoClose={2000} />
+            <ToastContainer theme="dark" autoClose={1200} />
         </BrowserRouter>
     </AuthProvider>
 );

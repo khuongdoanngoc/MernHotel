@@ -13,7 +13,7 @@ const register = async (req, res) => {
     try {
         const newUserData = req.body;
         newUserData.role = 0;
-        newUserData.authType = 'local'
+        newUserData.authType = "local";
         // validate required: true
         {
             const { name, email, password, phone, address } = newUserData;
@@ -205,13 +205,14 @@ const verifyCode = async (req, res) => {
     const token = await JWT.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "7d",
     });
-    const userData = await userModel.findById(req.body._id)
-    delete userData.password
+    const userData = await userModel.findById(req.body._id);
+    delete userData.password;
     res.status(200).send({
         success: true,
         message: "Verified!",
         token,
-        user: userData
+        user: userData,
+        resetCode,
     });
 };
 
@@ -219,26 +220,76 @@ const updateAuth = async (req, res) => {
     if (!req.body.name) {
         return res.status(403).send({
             success: true,
-            message: 'Name is required!'
-        })
+            message: "Name is required!",
+        });
     }
     try {
-        let user = await userModel.findByIdAndUpdate(req.user._id, req.body)
-        user = await userModel.findById(req.user._id)
+        let user = await userModel.findByIdAndUpdate(req.user._id, req.body);
+        user = await userModel.findById(req.user._id);
         res.status(201).send({
             success: true,
-            message: 'Update Info Successfully!',
+            message: "Update Info Successfully!",
             token: req.user.token,
             user,
-        })
+        });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
-            message: 'Server error in update auth!'
-        })
-    } 
-}
+            message: "Server error in update auth!",
+        });
+    }
+};
+
+const changePassword = async (req, res) => {
+    try {
+        let user = await userModel.findById(req.user._id);
+        console.log(req.body)
+        if (req.body.oldPassword) {
+            const isPasswordMatched = comparePassword(
+                req.body.oldPassword,
+                user.password
+            );
+            if (!isPasswordMatched) {
+                return res.status(403).send({
+                    success: false,
+                    message: "Old Password is Incorrect!",
+                });
+            }
+        } else if (req.body.permission) {
+            const isCodeMatched = Number(req.body.permission) === resetCode
+            if (!isCodeMatched) {
+                return res.status(403).send({
+                    success: false,
+                    message: "Code Is Not Matched!",
+                });
+            }
+        } else {
+            return res.status(403).send({
+                success: false,
+                message: 'Error!'
+            })
+        }
+        const newPasswordHashed = await hashPassword(req.body.newPassword);
+        await userModel.updateOne(
+            { _id: req.user._id },
+            { $set: { password: newPasswordHashed } }
+        );
+        const userPasswordChanged = await userModel.findById(req.user._id);
+        res.status(201).send({
+            success: true,
+            message: "Change Password Successfully!",
+            token: req.user.token,
+            user: userPasswordChanged,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Server error in change password!",
+        });
+    }
+};
 
 const secret = async (req, res, next) => {
     res.send("secret called!");
@@ -253,5 +304,6 @@ module.exports = {
     resetPassword,
     verifyCode,
     updateAuth,
+    changePassword,
     secret,
 };
