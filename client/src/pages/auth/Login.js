@@ -8,21 +8,21 @@ import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        if (!email || !password) {
+        if (!username || !password) {
             toast.warning("Please enter both username and password.");
             return;
         }
         try {
             const loginURL = `${process.env.REACT_APP_API}/api/v1/auth/login`;
             const data = {
-                email,
+                username,
                 password,
             };
             const res = await axios.post(loginURL, data);
@@ -70,14 +70,14 @@ function Login() {
                         <div className="login-normally">
                             <div className="login-email-address">
                                 <Form.Label htmlFor="email">
-                                    Email Address
+                                    Username
                                 </Form.Label>
                                 <Form.Control
-                                    placeholder="Please enter your email"
+                                    placeholder="Please enter your username"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
                                     required
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                             <div className="login-password">

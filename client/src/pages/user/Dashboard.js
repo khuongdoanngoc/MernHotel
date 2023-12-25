@@ -1,21 +1,75 @@
 import Layout from "../../components/Layout/Layout";
 import "./styles.css";
 import UserDashboardMenu from "../../components/Layout/UserDashboardMenu";
-import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
 import { useAuth } from "../../context/auth";
+import { Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-    const [auth] = useAuth();
+    const [auth, setAuth] = useAuth();
+    const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
+        setEmail(auth.user.email);
         setName(auth.user.name);
         setAddress(auth.user.address);
         setPhone(auth.user.phone);
     }, [auth]);
+
+    const handleUpdateAuth = async (e) => {
+        e.preventDefault();
+        if (!name || !email) {
+            toast.warning("Name and Email are Required!");
+            return;
+        }
+        try {
+            const { data } = await axios.patch(
+                `${process.env.REACT_APP_API}/api/v1/auth/update`,
+                {
+                    email,
+                    name,
+                    address,
+                    phone,
+                }
+            );
+            if (data.success) {
+                toast.success(data.message);
+                // set token
+                setAuth({
+                    ...auth,
+                    user: data.user,
+                    token: data.token,
+                });
+                delete data.user["password"];
+                const authToken = {
+                    token: data.token,
+                    user: data.user,
+                };
+                localStorage.setItem("auth", JSON.stringify(authToken));
+                if (data.user.role === 1) {
+                    navigate("/admin/dashboard");
+                } else {
+                    navigate("/user/dashboard");
+                }
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            if (!error.response.data.success) {
+                const message = error.response.data.message;
+                toast.error(message);
+            } else {
+                toast.error("Failure Update!");
+            }
+        }
+    };
 
     return (
         <Layout>
@@ -26,7 +80,7 @@ function Dashboard() {
                     <hr />
                     <div className="dashboard-user-info">
                         <span style={{ alignItems: "center" }}>
-                            {auth.user.email}
+                            {auth.user.username}
                         </span>
                         <div className="custom-rectangle">
                             <span>
@@ -36,6 +90,16 @@ function Dashboard() {
                     </div>
                     <form>
                         <div className="change-info-inputs">
+                            <div className="login-email-address">
+                                <Form.Label htmlFor="email">Email</Form.Label>
+                                <Form.Control
+                                    placeholder="Please enter your email"
+                                    aria-label="email"
+                                    aria-describedby="basic-addon1"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
                             <div className="login-email-address">
                                 <Form.Label htmlFor="name">Name</Form.Label>
                                 <Form.Control
@@ -69,7 +133,7 @@ function Dashboard() {
                         </div>
 
                         <hr />
-                        <button className="login-submit-button" type="submit">
+                        <button className="login-submit-button" type="submit" onClick={handleUpdateAuth}>
                             <span>Save</span>
                         </button>
                     </form>

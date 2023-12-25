@@ -9,13 +9,13 @@
 
 .dashboard-user-info {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
 }
 
 .custom-rectangle {
     position: relative;
-    width: 70px;
+    width: 90px;
     height: 30px;
     background-color: rgb(0 0 0 / 8%);
     display: flex;

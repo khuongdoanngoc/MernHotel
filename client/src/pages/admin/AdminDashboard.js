@@ -10,15 +10,17 @@ import { useNavigate } from "react-router-dom";
 
 function AdminDashboard() {
     const [auth, setAuth] = useAuth();
+    const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         setName(auth.user.name);
         setAddress(auth.user.address);
         setPhone(auth.user.phone);
+        setEmail(auth.user.email);
     }, [auth]);
 
     const handleUpdateAuth = async (e) => {
@@ -28,9 +30,10 @@ function AdminDashboard() {
             return;
         }
         try {
-            const { data } = await axios.put(
+            const { data } = await axios.patch(
                 `${process.env.REACT_APP_API}/api/v1/auth/update`,
                 {
+                    email,
                     name,
                     address,
                     phone,
@@ -51,9 +54,9 @@ function AdminDashboard() {
                 };
                 localStorage.setItem("auth", JSON.stringify(authToken));
                 if (data.user.role === 1) {
-                    navigate('/admin/dashboard')
+                    navigate("/admin/dashboard");
                 } else {
-                    navigate('/user/dashboard')
+                    navigate("/user/dashboard");
                 }
             } else {
                 toast.error(data.message);
@@ -77,7 +80,7 @@ function AdminDashboard() {
                     <hr />
                     <div className="dashboard-user-info">
                         <span style={{ alignItems: "center" }}>
-                            {auth.user.email}
+                            {auth.user.username}
                         </span>
                         <div className="custom-rectangle">
                             <span>
@@ -87,6 +90,16 @@ function AdminDashboard() {
                     </div>
                     <form>
                         <div className="change-info-inputs">
+                            <div className="login-email-address">
+                                <Form.Label htmlFor="name">Email</Form.Label>
+                                <Form.Control
+                                    placeholder="Please enter your email"
+                                    aria-label="email"
+                                    aria-describedby="basic-addon1"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
                             <div className="login-email-address">
                                 <Form.Label htmlFor="name">Name</Form.Label>
                                 <Form.Control

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 
 function ForgotPassword() {
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("");
     const [userId, setUserId] = useState("");
     const [code, setCode] = useState("");
@@ -17,24 +18,24 @@ function ForgotPassword() {
 
     const handleSendMail = async (e) => {
         e.preventDefault();
-        if (!email || "") {
-            toast.warning("Please enter your email!");
+        if (!username || "") {
+            toast.warning("Please enter your username!");
             return;
         }
         try {
             const { data } = await axios.post(
                 `${process.env.REACT_APP_API}/api/v1/auth/reset-password`,
                 {
-                    email,
+                    username,
                 }
             );
-            console.log("data: ", data);
             if (data.success) {
                 toast.success(data.message);
                 toast.success("Please check your email to get the code!");
                 setIsSent(true);
-                setEmail("");
+                setUsername("");
                 setUserId(data.info._id);
+                setEmail(data.info.email)
             }
         } catch (error) {
             if (!error.response.data.success) {
@@ -99,7 +100,7 @@ function ForgotPassword() {
     useEffect(() => {
         if (isSent) {
             setCode("");
-            setEmail("");
+            setUsername("");
         }
     }, [isSent]);
 
@@ -113,21 +114,21 @@ function ForgotPassword() {
                         <div className="login-normally">
                             <div className="login-email-address">
                                 <Form.Label htmlFor="email">
-                                    {isSent ? "Code" : "Email Address"}
+                                    {isSent ? `Code from ${email}` : "Username"}
                                 </Form.Label>
                                 <Form.Control
                                     placeholder={`Please enter ${
-                                        isSent ? "code" : "your email"
+                                        isSent ? "code" : "your username"
                                     }`}
-                                    aria-label={`${isSent ? "code" : "email"}`}
+                                    aria-label={`${isSent ? "code" : "username"}`}
                                     aria-describedby="basic-addon1"
-                                    value={isSent ? code : email}
+                                    value={isSent ? code : username}
                                     required
                                     onChange={(e) => {
                                         if (isSent) {
                                             setCode(e.target.value);
                                         } else {
-                                            setEmail(e.target.value);
+                                            setUsername(e.target.value);
                                         }
                                     }}
                                 />
@@ -145,7 +146,7 @@ function ForgotPassword() {
                             className="login-submit-button"
                             type="submit"
                             onClick={isSent ? handleSendCode : handleSendMail}>
-                            <span>{isSent ? "Verify" : "Send Mail"}</span>
+                            <span>{isSent ? "Verify" : "Retrieve"}</span>
                         </button>
                         <a className="login-forgot-password" href="/login">
                             Back To Login?

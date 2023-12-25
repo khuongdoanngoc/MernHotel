@@ -16,7 +16,12 @@ const register = async (req, res) => {
         newUserData.authType = "local";
         // validate required: true
         {
-            const { name, email, password, phone, address } = newUserData;
+            const { username, name, email, password, phone, address } = newUserData;
+            if (!username) {
+                return res
+                    .status(404)
+                    .send({ success: false, message: "Username is Required!" });
+            }
             if (!email) {
                 return res
                     .status(404)
@@ -49,12 +54,12 @@ const register = async (req, res) => {
             newUserData.password = hashedPassword;
         }
         const existingUser = await userModel.findOne({
-            email: newUserData.email,
+            username: newUserData.username,
         });
         if (existingUser) {
             return res.status(409).send({
                 success: false,
-                message: "Email already exist",
+                message: "The username already exist",
             });
         }
         const user = await new userModel(newUserData)
@@ -82,20 +87,20 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
+        const { username, password } = req.body;
+        if (!username || !password) {
             res.status(404).send({
                 success: false,
-                message: "Email or Password Incorrect!",
+                message: "Username or Password Incorrect!",
             });
         }
 
-        const result = await userModel.findOne({ email });
+        const result = await userModel.findOne({ username });
 
         if (!result) {
             return res.status(404).send({
                 success: false,
-                message: "Email Incorrect!",
+                message: "Username Incorrect!",
             });
         }
 
@@ -168,12 +173,12 @@ const getUser = async (req, res) => {
 
 let resetCode;
 const resetPassword = async (req, res) => {
-    // check if not exist email
-    const isExist = await userModel.findOne({ email: req.body.email });
+    // check if not exist username
+    const isExist = await userModel.findOne({ username: req.body.username });
     if (!isExist) {
         return res.status(401).send({
             success: false,
-            message: "No user found for this email!",
+            message: "No user found for this username!",
         });
     }
     const info = {
@@ -182,7 +187,7 @@ const resetPassword = async (req, res) => {
     };
     const code = generateCode();
     resetCode = code;
-    sendResetPasswordEmail(req.body.email, code);
+    sendResetPasswordEmail(isExist.email, code);
     res.status(200).send({
         success: true,
         message: "Send mail successfully!",
@@ -217,10 +222,10 @@ const verifyCode = async (req, res) => {
 };
 
 const updateAuth = async (req, res) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.email) {
         return res.status(403).send({
             success: true,
-            message: "Name is required!",
+            message: "Name and Email are required!",
         });
     }
     try {
@@ -244,7 +249,6 @@ const updateAuth = async (req, res) => {
 const changePassword = async (req, res) => {
     try {
         let user = await userModel.findById(req.user._id);
-        console.log(req.body)
         if (req.body.oldPassword) {
             const isPasswordMatched = comparePassword(
                 req.body.oldPassword,
@@ -257,7 +261,7 @@ const changePassword = async (req, res) => {
                 });
             }
         } else if (req.body.permission) {
-            const isCodeMatched = Number(req.body.permission) === resetCode
+            const isCodeMatched = Number(req.body.permission) === resetCode;
             if (!isCodeMatched) {
                 return res.status(403).send({
                     success: false,
@@ -267,8 +271,8 @@ const changePassword = async (req, res) => {
         } else {
             return res.status(403).send({
                 success: false,
-                message: 'Error!'
-            })
+                message: "Error!",
+            });
         }
         const newPasswordHashed = await hashPassword(req.body.newPassword);
         await userModel.updateOne(

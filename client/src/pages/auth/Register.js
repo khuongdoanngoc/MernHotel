@@ -1,4 +1,4 @@
-import "./login.css"
+import "./login.css";
 import Layout from "../../components/Layout/Layout";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Register() {
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -20,6 +21,7 @@ function Register() {
         try {
             const registerURL = `${process.env.REACT_APP_API}/api/v1/auth/register`;
             const data = {
+                username,
                 name,
                 email,
                 password,
@@ -63,13 +65,13 @@ function Register() {
                         <div className="login-normally">
                             <div className="login-email-address">
                                 <Form.Label htmlFor="email">
-                                    Email Address
+                                    Username
                                 </Form.Label>
                                 <Form.Control
-                                    placeholder="Please enter your email"
+                                    placeholder="Please enter your username"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                             <div className="login-email-address">
@@ -81,6 +83,18 @@ function Register() {
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
+                            <div className="login-email-address">
+                                <Form.Label htmlFor="email">
+                                    Email Address
+                                </Form.Label>
+                                <Form.Control
+                                    placeholder="Please enter your email"
+                                    aria-label="email"
+                                    aria-describedby="basic-addon1"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+
                             <div className="login-email-address">
                                 <Form.Label htmlFor="phone">Phone</Form.Label>
                                 <Form.Control
@@ -131,7 +145,7 @@ function Register() {
                         <div className="login-third-party">
                             <a
                                 className="login-social"
-                                href="#"
+                                href="/"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     handleServiceLogin("google");
@@ -151,7 +165,7 @@ function Register() {
                             </a>
                             <a
                                 className="login-social"
-                                href="#"
+                                href="/"
                                 onClick={(e) => {
                                     e.preventDefault();
                                 }}>
