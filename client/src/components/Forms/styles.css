@@ -1,0 +1,36 @@
+/* category form */
+.category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.multiSelectContainer li:hover {
+    background-color: rgb(236 236 236) !important;
+    color: black !important;
+}
+
+.highlightOption {
+    background-color: white !important;
+    color: black !important;
+}
+
+.searchBox {
+    border: none !important;
+}
+
+.multiselect-container:focus {
+    border-color: black !important;
+    box-shadow: 0 0 0 0.1rem black !important;
+    background-color: transparent !important;
+}
+
+#custom-switch {
+    width: 80px !important;
+    box-shadow: none !important;
+    border-color: black !important;
+}
+
+#custom-switch:checked {
+    background-color: black !important;
+}

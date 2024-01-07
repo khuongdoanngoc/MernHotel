@@ -18,7 +18,6 @@ function Header() {
     const handleCloseRight = () => setShowRight(false);
     const handleShowRight = () => setShowRight(true);
 
-
     const handleLogout = () => {
         toast.success("Logout Successfully");
         setAuth({
@@ -73,7 +72,7 @@ function Header() {
                     </Offcanvas>
                 </div>
                 <div className="header-search">
-                    <Form.Control placeholder="Search Products"></Form.Control>
+                    <Form.Control className="input-focus" placeholder="Search Products" />
                 </div>
                 <div className="header-right-items">
                     <div className="header-card">

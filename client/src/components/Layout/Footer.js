@@ -36,7 +36,7 @@ function Footer() {
                         <form>
                             <InputGroup>
                                 <Form.Control
-                                    className="footer-input"
+                                    className="footer-input input-focus"
                                     placeholder="Please Enter Your Email"
                                     aria-label="Please Enter Your Email"
                                     aria-describedby="basic-addon2"

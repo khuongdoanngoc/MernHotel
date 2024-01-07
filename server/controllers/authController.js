@@ -4,7 +4,7 @@ const {
     generateCode,
 } = require("../helpers/authHelper");
 const { sendResetPasswordEmail } = require("../configs/nodemailer");
-const userModel = require("../models/usersModel");
+const userModel = require("../models/userModel");
 
 const JWT = require("jsonwebtoken");
 const nodemailer = require("nodemailer");

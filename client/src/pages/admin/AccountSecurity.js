@@ -99,11 +99,12 @@ function AccountSecurity() {
                     <form>
                         <div className="change-info-inputs">
                             {!permission && (
-                                <div className="login-email-address">
+                                <div className="">
                                     <Form.Label htmlFor="name">
                                         Old Password
                                     </Form.Label>
                                     <Form.Control
+                                        className="input-focus"
                                         placeholder="Please enter your old password"
                                         aria-label="name"
                                         aria-describedby="basic-addon1"
@@ -116,11 +117,12 @@ function AccountSecurity() {
                                     />
                                 </div>
                             )}
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="phone">
                                     New Password
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your new password"
                                     aria-label="phone"
                                     aria-describedby="basic-addon1"
@@ -132,11 +134,12 @@ function AccountSecurity() {
                                     }
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">
                                     Confirmed New Passsword
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your new password"
                                     aria-label="address"
                                     aria-describedby="basic-addon1"
@@ -151,7 +154,7 @@ function AccountSecurity() {
                         </div>
                         <hr />
                         <button
-                            className="login-submit-button"
+                            className="submit-button"
                             type="submit"
                             onClick={handleResetPassword}>
                             <span>Save</span>

@@ -21,10 +21,25 @@ input {
     height: 40px !important;
 }
 
-input:focus {
+.input-focus:focus {
     border-color: black !important;
     box-shadow: 0 0 0 0.1rem black !important;
     background-color: transparent !important;
+}
+
+input::placeholder {
+    color: #7d7d7d !important;
+    font-size: 0.87rem;
+}
+
+textarea:focus {
+    border-color: black !important;
+    box-shadow: 0 0 0 0.1rem black !important;
+    background-color: transparent !important;
+}
+textarea::placeholder {
+    color: #7d7d7d !important;
+    font-size: 0.87rem;
 }
 
 button {
@@ -34,4 +49,8 @@ button {
 
 span {
     font-family: "Poppins" !important;
+}
+
+a {
+    text-decoration: none !important;
 }

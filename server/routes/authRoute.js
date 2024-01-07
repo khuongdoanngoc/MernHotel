@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 require("../configs/passport");
-const JWT = require("jsonwebtoken");
 
 // controllers import
 const {

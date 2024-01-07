@@ -13,6 +13,8 @@ import LoginSuccess from "./utils/LoginSuccess";
 import * as AdminItems from "./pages/admin/Exporter";
 import * as UserItems from "./pages/user/Exporter"
 
+import CategoryUpdation from "./components/Forms/Categories/CategoryUpdation";
+
 function App() {
     return (
         <Routes>
@@ -57,6 +59,10 @@ function App() {
                 <Route
                     path="dashboard/category"
                     element={<AdminItems.Categories />}
+                />
+                <Route
+                    path="dashboard/category/:slug"
+                    element={<CategoryUpdation />}
                 />
                 <Route
                     path="dashboard/order"

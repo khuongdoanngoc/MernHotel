@@ -67,7 +67,7 @@
     align-items: center;
 }
 
-.login-submit-button {
+.submit-button {
     width: 135px;
     height: 40px;
     display: flex;
@@ -76,7 +76,7 @@
     border: solid black;
 }
 
-.login-submit-button:hover {
+.submit-button:hover {
     border-color: black !important;
     box-shadow: 0 0 0 0.1rem black !important;
     background-color: transparent !important;

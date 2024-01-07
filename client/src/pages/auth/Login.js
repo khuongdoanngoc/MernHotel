@@ -68,11 +68,12 @@ function Login() {
                 <form onSubmit={handleLoginSubmit}>
                     <div className="login-row">
                         <div className="login-normally">
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">
                                     Username
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your username"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
@@ -85,6 +86,7 @@ function Login() {
                                     Password
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your password"
                                     aria-label="password"
                                     aria-describedby="basic-addon1"
@@ -144,7 +146,7 @@ function Login() {
                     <hr />
                     <div className="login-submit">
                         <button
-                            className="login-submit-button"
+                            className="submit-button"
                             type="submit"
                             onClick={handleLoginSubmit}
                             >

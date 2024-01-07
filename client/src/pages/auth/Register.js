@@ -63,31 +63,34 @@ function Register() {
                 <form>
                     <div className="login-row">
                         <div className="login-normally">
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">
                                     Username
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your username"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="name">Name</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your name"
                                     aria-label="name"
                                     aria-describedby="basic-addon1"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">
                                     Email Address
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your email"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
@@ -95,18 +98,20 @@ function Register() {
                                 />
                             </div>
 
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="phone">Phone</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your phone"
                                     aria-label="phone"
                                     aria-describedby="basic-addon1"
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">Address</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your address"
                                     aria-label="address"
                                     aria-describedby="basic-addon1"
@@ -118,6 +123,7 @@ function Register() {
                                     Password
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your password"
                                     aria-label="password"
                                     aria-describedby="basic-addon1"
@@ -132,6 +138,7 @@ function Register() {
                                     Confirm Password
                                 </Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your password"
                                     aria-label="password"
                                     aria-describedby="basic-addon1"

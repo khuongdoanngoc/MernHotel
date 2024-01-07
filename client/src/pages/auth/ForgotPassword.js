@@ -112,7 +112,7 @@ function ForgotPassword() {
                 <form>
                     <div className="login-row">
                         <div className="login-normally">
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">
                                     {isSent ? `Code from ${email}` : "Username"}
                                 </Form.Label>
@@ -143,7 +143,7 @@ function ForgotPassword() {
                     <hr />
                     <div className="login-submit">
                         <button
-                            className="login-submit-button"
+                            className="submit-button"
                             type="submit"
                             onClick={isSent ? handleSendCode : handleSendMail}>
                             <span>{isSent ? "Verify" : "Retrieve"}</span>

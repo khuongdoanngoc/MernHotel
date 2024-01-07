@@ -90,9 +90,10 @@ function Dashboard() {
                     </div>
                     <form>
                         <div className="change-info-inputs">
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">Email</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your email"
                                     aria-label="email"
                                     aria-describedby="basic-addon1"
@@ -100,9 +101,10 @@ function Dashboard() {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="name">Name</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your name"
                                     aria-label="name"
                                     aria-describedby="basic-addon1"
@@ -110,9 +112,10 @@ function Dashboard() {
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="phone">Phone</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your phone"
                                     aria-label="phone"
                                     aria-describedby="basic-addon1"
@@ -120,9 +123,10 @@ function Dashboard() {
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
-                            <div className="login-email-address">
+                            <div className="">
                                 <Form.Label htmlFor="email">Address</Form.Label>
                                 <Form.Control
+                                    className="input-focus"
                                     placeholder="Please enter your address"
                                     aria-label="address"
                                     aria-describedby="basic-addon1"
@@ -133,7 +137,7 @@ function Dashboard() {
                         </div>
 
                         <hr />
-                        <button className="login-submit-button" type="submit" onClick={handleUpdateAuth}>
+                        <button className="submit-button" type="submit" onClick={handleUpdateAuth}>
                             <span>Save</span>
                         </button>
                     </form>
