@@ -59,7 +59,10 @@ const getCategories = async (req, res) => {
 };
 
 const descriptionCategory = async (req, res) => {
-    res.send(req.params.slug)
+    res.status(200).send({
+        message: "Ok",
+        slug: req.params.slug
+    })
 }
 
 module.exports = {

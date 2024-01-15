@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Multiselect from "multiselect-react-dropdown";
 import axios from "axios";
 
-function CategoriesForm() {
+function CategoryAddition() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [products, setProducts] = useState([]);
@@ -106,4 +106,4 @@ function CategoriesForm() {
     );
 }
 
-export default CategoriesForm;
+export default CategoryAddition;

@@ -1,5 +1,5 @@
 import AdminDashboardMenu from "../../components/Layout/AdminDashboardMenu";
-import CategoriesForm from "../../components/Forms/Categories/CategoriesForm";
+import CategoryAddition from "../../components/Forms/Categories/CategoryAddition";
 import Layout from "../../components/Layout/Layout";
 import { Card, Button } from "react-bootstrap";
 import "./styles.css";
@@ -49,7 +49,7 @@ function Categories() {
                     </div>
                     <hr />
                     {isAdding ? (
-                        <CategoriesForm />
+                        <CategoryAddition />
                     ) : (
                         <div className="category-cards">
                             {categories.map((category) => (
