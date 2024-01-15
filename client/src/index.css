@@ -45,6 +45,7 @@ textarea::placeholder {
 button {
     all: initial;
     cursor: pointer;
+    font-family: "Poppins";
 }
 
 span {

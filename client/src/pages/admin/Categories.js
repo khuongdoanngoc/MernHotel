@@ -16,7 +16,6 @@ function Categories() {
             const { data } = await axios.get(
                 `${process.env.REACT_APP_API}/api/v1/category/`
             );
-            console.log(data);
             if (data.success) {
                 setCategories(data.categories);
             } else {

@@ -17,7 +17,7 @@ const createCategory = async (req, res) => {
     };
     try {
         const isExist = await categoryModel.findOne({
-            slug: slugify(req.body.name)
+            slug: slugify(req.body.name),
         });
         if (isExist) {
             return res.status(409).send({
@@ -59,14 +59,49 @@ const getCategories = async (req, res) => {
 };
 
 const descriptionCategory = async (req, res) => {
-    res.status(200).send({
-        message: "Ok",
-        slug: req.params.slug
-    })
-}
+    try {
+        const categoryDescription = await categoryModel.findOne({
+            slug: req.params.slug,
+        });
+        if (!categoryDescription) {
+            return res.status(404).send({
+                success: false,
+                message: `${req.params.slug} not Found!`,
+            });
+        }
+        res.status(200).send({
+            success: true,
+            message: `Get ${req.params.slug} description successfully!`,
+            categoryDescription,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            success: false,
+            message: error,
+        });
+    }
+};
+
+const updateCategory = async (req, res) => {
+    try {
+        await categoryModel.findOneAndUpdate({ slug: req.body.slug }, req.body);
+        res.status(201).send({
+            success: true,
+            message: "Updated",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            success: false,
+            error,
+        });
+    }
+};
 
 module.exports = {
     createCategory,
     getCategories,
     descriptionCategory,
+    updateCategory,
 };

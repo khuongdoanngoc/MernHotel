@@ -1,32 +1,65 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import AdminDashboardMenu from "../../Layout/AdminDashboardMenu";
 import { Button, Form } from "react-bootstrap";
 import Multiselect from "multiselect-react-dropdown";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function CategoryUpdation() {
     const location = useLocation();
-
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [products, setProducts] = useState([]);
     const [isActive, setIsActive] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const slug = location.pathname.split("/")[4];
-        console.log(slug)
         try {
             const getDescriptionCategory = async () => {
-                const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/${slug}`)
-                console.log(data)
-            }
-            getDescriptionCategory()
+                const { data } = await axios.get(
+                    `${process.env.REACT_APP_API}/api/v1/category/${slug}`
+                );
+                if (data.success) {
+                    const categoryDescription = data.categoryDescription;
+                    setName(categoryDescription.name)
+                    setDescription(categoryDescription.description)
+                    setIsActive(categoryDescription.isActive);
+                    setProducts(categoryDescription.products)
+                }
+            };
+            getDescriptionCategory();
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }, []);
+
+    const handleCategorySave = async (e) => {
+        e.preventDefault();
+        if (!name) {
+            toast.error('Name is Required!');
+            return;
+        }
+        try {
+            const slug = location.pathname.split("/")[4];
+            const { data } = await axios.patch(`${process.env.REACT_APP_API}/api/v1/category/update`, {
+                slug, name, description, products, isActive
+            })
+            if (data.success) {
+                toast.success(data.message)
+                navigate('/admin/dashboard/category')
+            }
+        } catch (error) {
+            if (!error.response.data.success) {
+                const message = error.response.data.message;
+                toast.error(message);
+            } else {
+                toast.error("Failure Update Category!");
+            }
+        }
+    }
 
     return (
         <Layout>
@@ -55,6 +88,7 @@ function CategoryUpdation() {
                                 aria-label="category name"
                                 aria-describedby="basic-addon1"
                                 required
+                                value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
@@ -67,6 +101,7 @@ function CategoryUpdation() {
                                 as="textarea"
                                 placeholder="Please enter category description"
                                 aria-label="category description"
+                                value={description}
                                 aria-describedby="basic-addon1"
                                 onChange={(e) => setDescription(e.target.value)}
                             />
@@ -84,6 +119,7 @@ function CategoryUpdation() {
                                 onSelect={(product) => {
                                     setProducts(product);
                                 }}
+                                
                                 style={{
                                     chips: {
                                         background: "rgb(236 236 236)",
@@ -102,17 +138,17 @@ function CategoryUpdation() {
                             <Form.Check
                                 type="switch"
                                 id="custom-switch"
-                                defaultChecked
-                                onClick={() => setIsActive(!isActive)}
+                                checked={isActive}
+                                onChange={() => setIsActive(!isActive)}
                             />
                         </div>
                         <hr />
                         <button
                             className="submit-button"
                             type="submit"
-                            // onClick={handleCategorySubmit}
+                            onClick={handleCategorySave}
                         >
-                            <span>Add</span>
+                            <span>Save</span>
                         </button>
                     </div>
                 </div>

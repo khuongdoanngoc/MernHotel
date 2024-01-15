@@ -13,10 +13,6 @@ function CategoryAddition() {
 
     const handleCategorySubmit = async (e) => {
         e.preventDefault();
-        console.log(name)
-        console.log(description)
-        console.log(products)
-        console.log(isActive)
         if (!name) {
             toast.error('Name is Required!');
             return;
