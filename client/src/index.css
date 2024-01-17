@@ -21,6 +21,10 @@ input {
     height: 40px !important;
 }
 
+.space-between {
+    justify-content: space-between;
+}
+
 .input-focus:focus {
     border-color: black !important;
     box-shadow: 0 0 0 0.1rem black !important;

@@ -14,6 +14,7 @@ import * as AdminItems from "./pages/admin/Exporter";
 import * as UserItems from "./pages/user/Exporter"
 
 import CategoryUpdation from "./components/Forms/Categories/CategoryUpdation";
+import ProductUpdation from "./components/Forms/Products/ProductUpdation";
 
 function App() {
     return (
@@ -71,6 +72,10 @@ function App() {
                 <Route
                     path="dashboard/product"
                     element={<AdminItems.Products />}
+                />
+                <Route
+                    path="dashboard/product/:slug"
+                    element={<ProductUpdation />}
                 />
                 <Route
                     path="dashboard/review"

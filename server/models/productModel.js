@@ -11,13 +11,14 @@ const productSchema = new Schema({
         type: String,
         lowercase: true,
     },
+    description: {
+        type: String
+    },
     quantity: {
         type: Number,
     },
-    category: {
-        type: Schema.Types.ObjectId,
-        ref: "category",
-        default: null,
+    price: {
+        type: Number,
     },
     updated: Date,
     created: {

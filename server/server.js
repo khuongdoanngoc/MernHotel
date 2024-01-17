@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT;
 const authRoutes = require('./routes/authRoute')
 const categoryRoutes = require('./routes/categoryRoute')
+const productRoutes = require('./routes/productRoute')
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -20,7 +21,8 @@ connect();
 // routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/category', categoryRoutes)
+app.use('/api/v1/product', productRoutes)
 
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`)
-})
+}) 
