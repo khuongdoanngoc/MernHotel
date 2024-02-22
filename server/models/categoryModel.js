@@ -21,12 +21,10 @@ const categoriesSchema = new Schema({
         type: Boolean,
         default: true,
     },
-    products: [
-        {
-            type: Schema.Types.ObjectId,
-            // ref: 'product'
-        },
-    ],
+    products: {
+        type: Array,
+        ref: 'product'
+    },
     updated: Date,
     created: {
         type: Date,

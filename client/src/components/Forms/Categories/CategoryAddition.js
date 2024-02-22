@@ -10,19 +10,26 @@ function CategoryAddition() {
     const [description, setDescription] = useState("");
     const [products, setProducts] = useState([]);
     const [isActive, setIsActive] = useState(true);
+    const [allProducts, setAllProducts] = useState([]);
 
     const handleCategorySubmit = async (e) => {
         e.preventDefault();
         if (!name) {
-            toast.error('Name is Required!');
+            toast.error("Name is Required!");
             return;
         }
         try {
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/category/create`, {
-                name, description, products, isActive
-            })
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_API}/api/v1/category/create`,
+                {
+                    name,
+                    description,
+                    products,
+                    isActive,
+                }
+            );
             if (data.success) {
-                toast.success(data.message)
+                toast.success(data.message);
                 window.location.reload();
             }
         } catch (error) {
@@ -33,7 +40,25 @@ function CategoryAddition() {
                 toast.error("Failure Add Category!");
             }
         }
-    }
+    };
+
+    useEffect(() => {
+        const getAllProducts = async () => {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/product`
+            );
+
+            const productsName = data.products.map(product => product.name);
+            console.log(productsName);
+            setAllProducts(productsName);
+        };
+        try {
+            getAllProducts();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
     return (
         <div className="category-form">
             <div className="">
@@ -61,15 +86,9 @@ function CategoryAddition() {
             <div className="">
                 <Multiselect
                     isObject={false}
-                    options={[
-                        "Option 1",
-                        "Option 2",
-                        "Option 3",
-                        "Option 4",
-                        "Option 5",
-                    ]}
+                    options={allProducts}
                     onSelect={(product) => {
-                        setProducts(product)
+                        setProducts(product);
                     }}
                     style={{
                         chips: {
@@ -84,7 +103,7 @@ function CategoryAddition() {
             </div>
             <div>
                 <Form.Label htmlFor="isActive">isActive?</Form.Label>
-                <Form.Check 
+                <Form.Check
                     type="switch"
                     id="custom-switch"
                     defaultChecked

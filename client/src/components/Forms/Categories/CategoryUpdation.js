@@ -14,6 +14,7 @@ function CategoryUpdation() {
     const [products, setProducts] = useState([]);
     const [isActive, setIsActive] = useState(true);
     const navigate = useNavigate();
+    const [allProducts, setAllProducts] = useState([]);
 
     useEffect(() => {
         const slug = location.pathname.split("/")[4];
@@ -24,10 +25,10 @@ function CategoryUpdation() {
                 );
                 if (data.success) {
                     const categoryDescription = data.categoryDescription;
-                    setName(categoryDescription.name)
-                    setDescription(categoryDescription.description)
+                    setName(categoryDescription.name);
+                    setDescription(categoryDescription.description);
                     setIsActive(categoryDescription.isActive);
-                    setProducts(categoryDescription.products)
+                    setProducts(categoryDescription.products);
                 }
             };
             getDescriptionCategory();
@@ -39,17 +40,24 @@ function CategoryUpdation() {
     const handleCategorySave = async (e) => {
         e.preventDefault();
         if (!name) {
-            toast.error('Name is Required!');
+            toast.error("Name is Required!");
             return;
         }
         try {
             const slug = location.pathname.split("/")[4];
-            const { data } = await axios.patch(`${process.env.REACT_APP_API}/api/v1/category/update`, {
-                slug, name, description, products, isActive
-            })
+            const { data } = await axios.patch(
+                `${process.env.REACT_APP_API}/api/v1/category/update`,
+                {
+                    slug,
+                    name,
+                    description,
+                    products,
+                    isActive,
+                }
+            );
             if (data.success) {
-                toast.success(data.message)
-                navigate('/admin/dashboard/category')
+                toast.success(data.message);
+                navigate("/admin/dashboard/category");
             }
         } catch (error) {
             if (!error.response.data.success) {
@@ -59,7 +67,43 @@ function CategoryUpdation() {
                 toast.error("Failure Update Category!");
             }
         }
+    };
+
+    const handleCategoryDelete = async (e) => {
+        e.preventDefault();
+        try {
+            const slug = location.pathname.split("/")[4];
+            console.log(slug)
+            const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/category/${slug}/delete`)
+            if (data.success) {
+                toast.success(data.message);
+                navigate("/admin/dashboard/category");
+            }
+        } catch (error) {
+            if (!error.response.data.success) {
+                const message = error.response.data.message;
+                toast.error(message);
+            } else {
+                toast.error("Failure Delete Category!");
+            }
+        }
     }
+
+    useEffect(() => {
+        const getAllProducts = async () => {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/product`
+            );
+
+            const productsName = data.products.map(product => product.name);
+            setAllProducts(productsName);
+        };
+        try {
+            getAllProducts();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     return (
         <Layout>
@@ -109,17 +153,10 @@ function CategoryUpdation() {
                         <div className="">
                             <Multiselect
                                 isObject={false}
-                                options={[
-                                    "Option 1",
-                                    "Option 2",
-                                    "Option 3",
-                                    "Option 4",
-                                    "Option 5",
-                                ]}
+                                options={allProducts}
                                 onSelect={(product) => {
                                     setProducts(product);
                                 }}
-                                
                                 style={{
                                     chips: {
                                         background: "rgb(236 236 236)",
@@ -129,6 +166,7 @@ function CategoryUpdation() {
                                         color: "black",
                                     },
                                 }}
+                                selectedValues={products}
                             />
                         </div>
                         <div>
@@ -143,13 +181,20 @@ function CategoryUpdation() {
                             />
                         </div>
                         <hr />
-                        <button
-                            className="submit-button"
-                            type="submit"
-                            onClick={handleCategorySave}
-                        >
-                            <span>Save</span>
-                        </button>
+                        <div className="d-flex space-between">
+                            <button
+                                className="submit-button"
+                                type="submit"
+                                onClick={handleCategorySave}>
+                                <span>Save</span>
+                            </button>
+                            <button
+                                className="submit-button"
+                                type="submit"
+                                onClick={handleCategoryDelete}>
+                                <span>Delete</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

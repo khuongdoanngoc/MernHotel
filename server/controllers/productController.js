@@ -100,9 +100,26 @@ const updateProduct = async (req, res) => {
     }
 };
 
+const deleteProduct = async (req, res) => {
+    try {
+        await productModel.findOneAndDelete({ slug: req.params.slug });
+        res.status(200).send({
+            success: true,
+            message: "Deleted!",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            success: false,
+            error,
+        });
+    }
+};
+
 module.exports = {
     createProduct,
     getProducts,
     descriptionProduct,
     updateProduct,
+    deleteProduct,
 };

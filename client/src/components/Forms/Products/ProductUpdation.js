@@ -25,6 +25,7 @@ function ProductUpdation() {
                 );
                 if (data.success) {
                     const productDescription = data.productDescription;
+                    console.log(productDescription);
                     setName(productDescription.name);
                     setDescription(productDescription.description);
                     setIsActive(productDescription.isActive);
@@ -67,6 +68,27 @@ function ProductUpdation() {
                 toast.error(message);
             } else {
                 toast.error("Failure Update Category!");
+            }
+        }
+    };
+
+    const handleProductDelete = async (e) => {
+        e.preventDefault();
+        try {
+            const slug = location.pathname.split("/")[4];
+            const { data } = await axios.delete(
+                `${process.env.REACT_APP_API}/api/v1/product/${slug}/delete`
+            );
+            if (data.success) {
+                toast.success(data.message);
+                navigate("/admin/dashboard/product");
+            }
+        } catch (error) {
+            if (!error.response.data.success) {
+                const message = error.response.data.message;
+                toast.error(message);
+            } else {
+                toast.error("Failure Delete Product!");
             }
         }
     };
@@ -128,7 +150,7 @@ function ProductUpdation() {
                                     aria-describedby="basic-addon1"
                                     style={{ width: "390px" }}
                                     required
-                                    defaultValue={1}
+                                    value={quantity}
                                     type="number"
                                     onChange={(e) =>
                                         setQuantity(e.target.value)
@@ -143,7 +165,7 @@ function ProductUpdation() {
                                     aria-label="price"
                                     aria-describedby="basic-addon1"
                                     style={{ width: "390px" }}
-                                    defaultValue={1}
+                                    value={price}
                                     required
                                     type="number"
                                     onChange={(e) => setPrice(e.target.value)}
@@ -162,12 +184,20 @@ function ProductUpdation() {
                             />
                         </div>
                         <hr />
-                        <button
-                            className="submit-button"
-                            type="submit"
-                            onClick={handleProductSave}>
-                            <span>Save</span>
-                        </button>
+                        <div className="d-flex space-between">
+                            <button
+                                className="submit-button"
+                                type="submit"
+                                onClick={handleProductSave}>
+                                <span>Save</span>
+                            </button>
+                            <button
+                                className="submit-button"
+                                type="submit"
+                                onClick={handleProductDelete}>
+                                <span>Delete</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

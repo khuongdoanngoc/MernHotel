@@ -99,9 +99,27 @@ const updateCategory = async (req, res) => {
     }
 };
 
+const deleteCategory = async (req, res) => {
+    try {
+        console.log(req.params.slug)
+        await categoryModel.findOneAndDelete({ slug: req.params.slug });
+        res.status(200).send({
+            success: true,
+            message: "Deleted!",
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            success: false,
+            error,
+        });
+    }
+}
+
 module.exports = {
     createCategory,
     getCategories,
     descriptionCategory,
     updateCategory,
+    deleteCategory
 };

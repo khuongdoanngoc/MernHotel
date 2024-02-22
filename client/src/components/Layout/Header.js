@@ -54,7 +54,7 @@ function Header() {
                             style={{ fontSize: "23px" }}></i>
                     </button>
                     <a href="/">
-                        <span className="header-web-name">MERN Store</span>
+                        <span className="header-web-name">MERN Hotel</span>
                     </a>
                     <Offcanvas
                         show={showLeft}
