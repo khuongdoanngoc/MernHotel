@@ -100,7 +100,7 @@ function Header() {
                         </Offcanvas>
                     </div>
                     <div className="header-brands text-right-items">Brands</div>
-                    <div className="header-shop text-right-items">Shop</div>
+                    <div className="header-shop text-right-items">Rooms</div>
                     <div className="header-auth text-right-items">
                         <Dropdown className="header-auth-dropdown">
                             {!auth.user ? (
