@@ -17,7 +17,7 @@ const generateCode = () => {
 }
 
 const comparePassword = async (password, hashedPassword) => {
-    return bcrypt.compare(password, hashedPassword);
+    return await bcrypt.compare(password, hashedPassword);
 }
 
 module.exports = {

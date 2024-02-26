@@ -44,7 +44,7 @@ function AdminDashboardMenu() {
                             onClick={() =>
                                 navigate("/admin/dashboard/product")
                             }>
-                            Rooms
+                            Products
                         </td>
                     </tr>
                     <tr className="menu-user">

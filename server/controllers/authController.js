@@ -250,7 +250,7 @@ const changePassword = async (req, res) => {
     try {
         let user = await userModel.findById(req.user._id);
         if (req.body.oldPassword) {
-            const isPasswordMatched = comparePassword(
+            const isPasswordMatched = await comparePassword(
                 req.body.oldPassword,
                 user.password
             );

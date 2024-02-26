@@ -61,3 +61,11 @@
 .add-category-button:focus {
     color: brown;
 }
+
+.user-card {
+    margin-top: 1rem;
+}
+
+.user-card-title {
+    width: 100%;
+}
