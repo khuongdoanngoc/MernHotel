@@ -37,7 +37,7 @@ function ProductAddition() {
                 const message = error.response.data.message;
                 toast.error(message);
             } else {
-                toast.error("Failure Add Product!");
+                toast.error("Failure Add product!");
             }
         }
     };
