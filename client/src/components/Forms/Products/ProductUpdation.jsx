@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import AdminDashboardMenu from "../../Layout/AdminDashboardMenu";
 import { Button, Form } from "react-bootstrap";
-import Multiselect from "multiselect-react-dropdown";
 import axios from "axios";
 import { toast } from "react-toastify";
 
