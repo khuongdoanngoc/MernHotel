@@ -1,0 +1,70 @@
+.rooms-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 25px 0px 25px 0px;
+    align-items: center;
+}
+
+.filter {
+    width: 100%;
+    height: 58px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 15px 0px 15px;
+}
+
+.sortby {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.booth {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(250px, 1fr)
+    ); /* Tối đa 4 thẻ mỗi hàng */
+    gap: 17px; /* Khoảng cách giữa các thẻ */
+}
+
+.room-info {
+    padding: 25px 0px 25px 0px;
+    display: flex;
+    gap: 16px;
+}
+
+.room-img {
+    height: auto;
+    width: 40%;
+}
+
+.room-description {
+    height: 447.59px;
+    width: 60%;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.item-time {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 1px;
+}
+
+.time-type {
+    width: 50%;
+}
+.time-value {
+    width: 50% !important;
+}

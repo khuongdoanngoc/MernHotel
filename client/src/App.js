@@ -11,10 +11,12 @@ import AdminRoute from "./components/Routes/AdminRoute";
 import LoginSuccess from "./utils/LoginSuccess";
 
 import * as AdminItems from "./pages/admin/Exporter";
-import * as UserItems from "./pages/user/Exporter"
+import * as UserItems from "./pages/user/Exporter";
 
 import CategoryUpdation from "./components/Forms/Categories/CategoryUpdation";
 import ProductUpdation from "./components/Forms/Products/ProductUpdation";
+import Rooms from "./pages/rooms/Rooms";
+import RoomBooking from "./pages/rooms/RoomBooking";
 
 function App() {
     return (
@@ -65,10 +67,7 @@ function App() {
                     path="dashboard/category/:slug"
                     element={<CategoryUpdation />}
                 />
-                <Route
-                    path="dashboard/order"
-                    element={<AdminItems.Orders />}
-                />
+                <Route path="dashboard/order" element={<AdminItems.Orders />} />
                 <Route
                     path="dashboard/product"
                     element={<AdminItems.Products />}
@@ -89,11 +88,10 @@ function App() {
                     path="dashboard/support"
                     element={<AdminItems.Supports />}
                 />
-                <Route
-                    path="dashboard/user"
-                    element={<AdminItems.Users />}
-                />
+                <Route path="dashboard/user" element={<AdminItems.Users />} />
             </Route>
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/rooms/:id" element={<RoomBooking />} />
         </Routes>
     );
 }

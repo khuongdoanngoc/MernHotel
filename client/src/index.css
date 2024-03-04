@@ -15,6 +15,15 @@ html {
     box-sizing: border-box;
 }
 
+/* customize a tag */
+a {
+    color: #65676b !important;
+}
+
+a:hover {
+    color: black !important;
+}
+
 /* customize input */
 input {
     padding: 10px 20px !important;

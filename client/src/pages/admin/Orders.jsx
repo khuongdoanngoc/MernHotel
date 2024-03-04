@@ -7,7 +7,12 @@ function Orders() {
             <div className="user-dashboard-wrapper">
                 <AdminDashboardMenu />
                 <div className="user-dashboard-content">
-                    <h1>Orders</h1>
+                    <h2
+                        className="dashboard-title"
+                        style={{ marginBottom: "27px" }}>
+                        Orders
+                    </h2>
+                    <hr />
                 </div>
             </div>
         </Layout>

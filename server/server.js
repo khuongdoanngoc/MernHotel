@@ -1,28 +1,31 @@
-require('dotenv').config()
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT;
-const authRoutes = require('./routes/authRoute')
-const categoryRoutes = require('./routes/categoryRoute')
-const productRoutes = require('./routes/productRoute')
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const authRoutes = require("./routes/authRoute");
+const categoryRoutes = require("./routes/categoryRoute");
+const productRoutes = require("./routes/productRoute");
+const userRoutes = require("./routes/userRoute");
+
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB
-const connect = require('./configs/db')
+const connect = require("./configs/db");
 connect();
 
 // routes
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/category', categoryRoutes)
-app.use('/api/v1/product', productRoutes)
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/product", productRoutes);
+app.use('/api/v1/user', userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`server listening on port ${PORT}`)
-}) 
+    console.log(`server listening on port ${PORT}`);
+});
