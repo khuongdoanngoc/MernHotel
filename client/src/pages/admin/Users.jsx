@@ -6,20 +6,23 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 
 function Users() {
     const [users, setUsers] = useState(["test"]);
 
     useEffect(() => {
         const getUsers = async () => {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}/api/v1/get-all-users`)
-            
-        }
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/user/get-all-users`
+            );
+            setUsers(data.users);
+        };
         try {
             getUsers();
         } catch (error) {
             console.log(error);
+            toast.error("Error get users");
         }
     }, []);
 
@@ -34,7 +37,7 @@ function Users() {
                         Users
                     </h2>
                     <hr />
-                    <InputGroup style={{ marginBottom: '1rem'}}>
+                    <InputGroup style={{ marginBottom: "1rem" }}>
                         <Form.Control
                             className="footer-input input-focus"
                             placeholder="Type user name or email"
@@ -46,17 +49,16 @@ function Users() {
                         </Button>
                     </InputGroup>
                     <div className="category-cards">
-                        <a>
-                            <Card>
-                                <Card.Body>
-                                    <h2 className="category-title">
-                                        Name
-                                    </h2>
-                                    <span>Email</span>
-                                </Card.Body>
-                            </Card>
-                        </a>
-                        
+                        {users.map((user) => (
+                            <a key={user._id} href={"user/" + user.username} >
+                                <Card>
+                                    <Card.Body>
+                                        <h2 className="category-title">{user.name}</h2>
+                                        <span>{user.username}</span>
+                                    </Card.Body>
+                                </Card>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </div>

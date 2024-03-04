@@ -116,10 +116,34 @@ const deleteProduct = async (req, res) => {
     }
 };
 
+const getProductById = async (req, res) => {
+    try {
+        const product = await productModel.findById(req.body._id);
+        if (!product) {
+            return res.status(404).send({
+                success: false,
+                message: 'that id is not exist!'
+            })
+        }
+        res.status(200).send({
+            success: true,
+            message: 'get a product success',
+            product
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(403).send({
+            success: false,
+            message: error
+        })
+    }
+}
+
 module.exports = {
     createProduct,
     getProducts,
     descriptionProduct,
     updateProduct,
     deleteProduct,
+    getProductById
 };

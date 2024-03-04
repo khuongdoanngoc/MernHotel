@@ -9,10 +9,12 @@ const {
     descriptionProduct,
     updateProduct,
     deleteProduct,
+    getProductById
 } = require("../controllers/productController");
 
 router.post("/create", requireLogin, isAdmin, createProduct);
-router.get("/", requireLogin, isAdmin, getProducts);
+router.get("/", getProducts);
+router.post('/get-product-by-id', getProductById);
 router.get("/:slug", requireLogin, isAdmin, descriptionProduct);
 router.patch("/update", requireLogin, isAdmin, updateProduct);
 router.delete("/:slug/delete", requireLogin, isAdmin, deleteProduct);

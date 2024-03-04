@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Layout from "./Layout/Layout";
 
 function Spinner() {
-    const [count, setCount] = useState(4);
+    const [count, setCount] = useState(6);
     const navigate = useNavigate();
 
     useEffect(() => {
