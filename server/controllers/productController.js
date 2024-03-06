@@ -45,7 +45,7 @@ const getProducts = async (req, res) => {
     try {
         const products = await productModel
             .find()
-            .select("name description slug")
+            .select("name description slug pricePerDay imgUrl")
             .exec();
         res.status(200).send({
             success: true,

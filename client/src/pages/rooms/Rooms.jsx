@@ -46,10 +46,11 @@ function Rooms() {
                     <div className="sortby">
                         <Form.Select aria-label="Default select example">
                             <option defaultChecked value="1">
-                                Newest First
+                                All
                             </option>
-                            <option value="2">Price High to Low</option>
-                            <option value="3">Price Low to High</option>
+                            <option value="2">Single rooms</option>
+                            <option value="3">Double rooms</option>
+                            <option value="3">Family rooms</option>
                         </Form.Select>
                     </div>
                 </div>
@@ -58,12 +59,12 @@ function Rooms() {
                         <Card style={{ width: "263.5px" }} key={room._id}>
                             <Card.Img
                                 variant="top"
-                                src="https://blz04pap003files.storage.live.com/y4moM-sLwjeOmGp3UaA6hu_8thvi4Zrp603qJQb5lhATZHZdwjuO_ZlCrpZD7l9738lB3qTV0td0IxjfIkvS3p9bIfZ9ufbTY5fz9O2xKjKXqV3cvPcb1y41qqSDWs3CkltiuBppEU66IRLXBbAuGvalboiXjleMOKM6ptq0CjyS0xxcF42Ly4ZxgqM_b7a93t7X5kV2QFwTtpsrXjnAHFgZm7V81f9gYTc5fpiHpeALrU?encodeFailures=1&width=1024&height=1024"
+                                src={`${room.imgUrl}`}
                             />
                             <Card.Body>
                                 <Card.Title>{room.name}</Card.Title>
                                 <Card.Text>{room.description}</Card.Text>
-                                <Button variant="primary" onClick={(e) => {e.preventDefault(); navigate(`${room._id}`) }}>Book now</Button>
+                                <Button variant="primary" onClick={(e) => {e.preventDefault(); navigate(`${room._id}`) }}>${room.pricePerDay}</Button>
                             </Card.Body>
                         </Card>
                     ))}

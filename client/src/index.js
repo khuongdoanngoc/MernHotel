@@ -7,14 +7,18 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/auth";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <AuthProvider>
-        <BrowserRouter>
-            <App />
-            <ToastContainer theme="dark" autoClose={1200} />
-        </BrowserRouter>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <BrowserRouter>
+                <App />
+                <ToastContainer theme="dark" autoClose={1200} />
+            </BrowserRouter>
+        </LocalizationProvider>
     </AuthProvider>
 );
 

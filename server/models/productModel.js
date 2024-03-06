@@ -20,6 +20,12 @@ const productSchema = new Schema({
     price: {
         type: Number,
     },
+    pricePerDay: {
+        type: Number
+    },
+    imgUrl: {
+        type: String
+    },
     updated: Date,
     created: {
         type: Date,
