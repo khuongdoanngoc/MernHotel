@@ -194,7 +194,7 @@ function Register() {
                     <hr />
                     <div className="login-submit">
                         <button
-                            className="login-submit-button"
+                            className="submit-button"
                             type="submit"
                             onClick={handleSubmit}>
                             <span>Sign Up</span>

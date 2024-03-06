@@ -11,7 +11,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
     },
     email: {
         type: String,
@@ -35,7 +35,7 @@ const userSchema = new Schema({
     authType: {
         type: String,
         enum: ["local", "google", "facebook"],
-        required: true
+        required: true,
     },
     authGoogleId: {
         type: String,
@@ -44,6 +44,10 @@ const userSchema = new Schema({
     authFacebookId: {
         type: String,
         default: null,
+    },
+    wishlist: {
+        type: Array,
+        ref: "product",
     },
 });
 

@@ -35,7 +35,7 @@
 }
 
 .room-info {
-    padding: 25px 0px 25px 0px;
+    padding: 25px 0px 16px 0px;
     display: flex;
     gap: 16px;
 }
@@ -58,8 +58,9 @@
 .item-time {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 1px;
+    padding-top: 16px;
 }
 
 .time-type {
@@ -67,4 +68,43 @@
 }
 .time-value {
     width: 50% !important;
+}
+.item-picker {
+    width: 285px;
+}
+
+.item-share {
+    padding-top: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.share-icons {
+    width: 35px;
+    height: 35px;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 16px;
+}
+.room-rates {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    padding-bottom: 25px;
+}
+.room-rating-result {
+    width: 41%;
+    height: 340px;
+    padding: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+}
+.room-review {
+    width: 60%;
+    height: 340px;
+    background-color: aqua;
 }
