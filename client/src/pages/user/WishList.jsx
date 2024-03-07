@@ -14,7 +14,7 @@ function WishList() {
         try {
             const getWishList = async () => {
                 const { data } = await axios.post(
-                    `${process.env.REACT_APP_API}/api/v1/user/get-user-by-id`,
+                    `${process.env.REACT_APP_API}/api/v1/user/get-wishlist-by-userid`,
                     {
                         _id: auth.user._id,
                     }
@@ -24,6 +24,7 @@ function WishList() {
             getWishList();
         } catch (error) {}
     }, []);
+
 
     return (
         <Layout>
@@ -38,7 +39,7 @@ function WishList() {
                     <hr />
                     <div className="category-cards">
                         {wishlist.map((product) => (
-                            <div key={product._id}>
+                            <a key={product._id} href={`/rooms/${product._id}`}>
                                 <Card>
                                     <Card.Body>
                                         <h2 className="category-title">
@@ -47,7 +48,7 @@ function WishList() {
                                         <span>{product.description}</span>
                                     </Card.Body>
                                 </Card>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </div>

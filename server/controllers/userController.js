@@ -17,7 +17,7 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-const getUserById = async (req, res) => {
+const getWishListByUserId = async (req, res) => {
     try {
         const user = await userModel.findById(req.body._id);
         if (!user) {
@@ -42,5 +42,5 @@ const getUserById = async (req, res) => {
 
 module.exports = {
     getAllUsers,
-    getUserById
+    getWishListByUserId
 };
