@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+
 const userSchema = new Schema({
     name: {
         type: String,
@@ -45,10 +46,20 @@ const userSchema = new Schema({
         type: String,
         default: null,
     },
-    wishlist: {
-        type: Array,
-        ref: "product",
-    },
+    wishlist: [{
+        _id: {
+            type: Schema.Types.ObjectId,
+            ref: "product"
+        },
+        name: {
+            type: String,
+            ref: "product"
+        },
+        description: {
+            type: String,
+            ref: "product"
+        }
+    }],
 });
 
 module.exports = mongoose.model("user", userSchema);

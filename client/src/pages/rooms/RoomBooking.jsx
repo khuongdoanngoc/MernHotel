@@ -12,6 +12,7 @@ import { FaTwitter } from "react-icons/fa";
 import Button from "react-bootstrap/esm/Button";
 import Rating from "@mui/material/Rating";
 
+import { BarChart } from "@mui/x-charts/BarChart";
 
 function RoomBooking() {
     const location = useLocation();
@@ -20,8 +21,10 @@ function RoomBooking() {
     const [checkout, setCheckout] = useState({});
     const [total, setTotal] = useState(0);
 
+    const [chartOption, setChartOption] = useState({});
+
     const handleCheckinChange = (checkinTime) => {
-        if (checkout.isBefore(checkinTime)) {
+        if (checkout.isBefore(checkinTime.add(1, "day"))) {
             setCheckout(checkinTime.add(1, "day"));
         }
         setCheckin(checkinTime);
@@ -131,7 +134,25 @@ function RoomBooking() {
                 <div className="room-rating-result">
                     <h4>Rating</h4>
                     <Rating name="read-only" value={3} readOnly />
+                    <span>bases</span>
                     <hr />
+                    <BarChart
+                        xAxis={[
+                            {
+                                scaleType: "band",
+                                data: [
+                                    "5 stars",
+                                    "4 stars",
+                                    "3 stars",
+                                    "2 stars",
+                                    "1 star",
+                                ],
+                            },
+                        ]}
+                        series={[{ data: [14, 4, 3, 1, 4] }]}
+                        width={400}
+                        height={230}
+                    />
                 </div>
                 <div className="room-review"></div>
             </div>
