@@ -12,20 +12,18 @@ const productSchema = new Schema({
         lowercase: true,
     },
     description: {
-        type: String
-    },
-    quantity: {
-        type: Number,
-    },
-    price: {
-        type: Number,
+        type: String,
     },
     pricePerDay: {
-        type: Number
+        type: Number,
     },
     imgUrl: {
-        type: String
+        type: String,
     },
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'review'
+    }],
     updated: Date,
     created: {
         type: Date,
