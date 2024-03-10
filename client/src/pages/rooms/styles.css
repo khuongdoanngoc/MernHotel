@@ -106,5 +106,13 @@
 .room-review {
     width: 60%;
     height: 340px;
-    background-color: aqua;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 24px;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.btn-publish-review {
+    width: 25%;
 }

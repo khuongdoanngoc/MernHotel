@@ -11,8 +11,11 @@ import { FaPinterest } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import Button from "react-bootstrap/esm/Button";
 import Rating from "@mui/material/Rating";
+import Form from "react-bootstrap/Form";
 
 import { BarChart } from "@mui/x-charts/BarChart";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/auth";
 
 function RoomBooking() {
     const location = useLocation();
@@ -20,8 +23,14 @@ function RoomBooking() {
     const [checkin, setCheckin] = useState({});
     const [checkout, setCheckout] = useState({});
     const [total, setTotal] = useState(0);
+    const [productId, setProductId] = useState("");
 
-    const [chartOption, setChartOption] = useState({});
+    // auth
+    const [auth] = useAuth();
+
+    // review states
+    const [comment, setComment] = useState("");
+    const [rate, setRate] = useState(0);
 
     const handleCheckinChange = (checkinTime) => {
         if (checkout.isBefore(checkinTime.add(1, "day"))) {
@@ -56,7 +65,7 @@ function RoomBooking() {
                 location.pathname.split("/")[
                     location.pathname.split("/").length - 1
                 ];
-
+            setProductId(_idFromPathName);
             getRoom(_idFromPathName);
         } catch (error) {
             console.log(error);
@@ -69,6 +78,37 @@ function RoomBooking() {
 
     const disablePastCheckins = (date) => {
         return date.isBefore(checkin.add(1, "day"), "day");
+    };
+
+    const handlePublishReview = (e) => {
+        e.preventDefault();
+        // validate
+        if (!comment) {
+            toast.error("comment are required!");
+            return;
+        }
+        console.log(auth)
+        const publish = async () => {
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_API}/api/v1/review/create`,
+                {
+                    comment,
+                    rate,
+                    authorId: auth.user._id,
+                    productId
+                }
+            );
+            if (data.success) {
+                toast.success("publish review successful!");
+                window.location.reload();
+            }
+        };
+        try {
+            publish();
+        } catch (error) {
+            console.log(error.response.data.message);
+            toast.error(error.response.data.message);
+        }
     };
 
     return (
@@ -135,7 +175,7 @@ function RoomBooking() {
                     <h4>Rating</h4>
                     <Rating name="read-only" value={3} readOnly />
                     <span>bases</span>
-                    <hr />
+                    <hr style={{ marginBottom: "-5px" }} />
                     <BarChart
                         xAxis={[
                             {
@@ -154,7 +194,36 @@ function RoomBooking() {
                         height={230}
                     />
                 </div>
-                <div className="room-review"></div>
+                <div className="room-review">
+                    <h4>Add Review</h4>
+
+                    <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Comment</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            onChange={(e) => setComment(e.target.value)}
+                        />
+                    </Form.Group>
+                    <div className="action-rate">
+                        <Rating
+                            name="simple-controlled"
+                            value={rate}
+                            onChange={(event, newValue) => {
+                                setRate(newValue);
+                            }}
+                        />
+                    </div>
+                    <Button
+                        className="btn-publish-review"
+                        variant="outline-primary"
+                        id="button-addon2"
+                        onClick={handlePublishReview}>
+                        Publish Review
+                    </Button>
+                </div>
             </div>
         </Layout>
     );
