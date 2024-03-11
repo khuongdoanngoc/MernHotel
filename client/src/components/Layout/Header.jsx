@@ -80,7 +80,7 @@ function Header() {
                             style={{ all: "initial", cursor: "pointer" }}
                             onClick={handleShowRight}>
                             <i
-                                className="bi bi-cart"
+                                className="bi bi-heart"
                                 style={{ fontSize: "23px" }}></i>
                         </button>
                         <Offcanvas
@@ -90,7 +90,7 @@ function Header() {
                             scroll={true}
                             placement="end">
                             <Offcanvas.Header closeButton>
-                                <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                                <Offcanvas.Title>Wishlist</Offcanvas.Title>
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 Some text as placeholder. In real life you can

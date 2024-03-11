@@ -103,9 +103,13 @@
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
+.room-rating-title {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
 .room-review {
     width: 60%;
-    height: 340px;
     border: 1px solid rgba(0, 0, 0, 0.125);
     padding: 24px;
     border-radius: 0.25rem;
@@ -115,4 +119,18 @@
 }
 .btn-publish-review {
     width: 25%;
+}
+#review-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.review-cards {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.review-title {
+    display: flex;
+    gap: 15px;
 }

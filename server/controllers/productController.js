@@ -1,5 +1,6 @@
 const productModel = require("../models/productModel");
 const slugify = require("slugify");
+const reviewModel = require("../models/reviewModel");
 
 const createProduct = async (req, res) => {
     if (!req.body.name) {
@@ -125,10 +126,12 @@ const getProductById = async (req, res) => {
                 message: 'that id is not exist!'
             })
         }
+        const reviews = await reviewModel.find({ _id: { $in: product.reviews } }).exec();
         res.status(200).send({
             success: true,
             message: 'get a product success',
-            product
+            product,
+            reviews
         })
     } catch (error) {
         console.log(error);
