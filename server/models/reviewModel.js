@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const reviewSchema = new Schema({
-    title: {
+    author: {
         type: String,
     },
-    commect: {
+    comment: {
         type: String,
     },
     rate: {

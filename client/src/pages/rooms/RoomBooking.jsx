@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -11,7 +11,9 @@ import { FaPinterest } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import Button from "react-bootstrap/esm/Button";
 import Rating from "@mui/material/Rating";
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 import { BarChart } from "@mui/x-charts/BarChart";
 import { toast } from "react-toastify";
@@ -24,13 +26,27 @@ function RoomBooking() {
     const [checkout, setCheckout] = useState({});
     const [total, setTotal] = useState(0);
     const [productId, setProductId] = useState("");
+    const navigate = useNavigate();
 
     // auth
     const [auth] = useAuth();
 
     // review states
     const [comment, setComment] = useState("");
-    const [rate, setRate] = useState(0);
+    const [rate, setRate] = useState(5);
+    const [reviews, setReviews] = useState([]);
+
+    // confirm book states
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        if (!auth.token) {
+            toast.warning("please login to use this function");
+            navigate("/login");
+        } else {
+            setShow(true);
+        }
+    };
 
     const handleCheckinChange = (checkinTime) => {
         if (checkout.isBefore(checkinTime.add(1, "day"))) {
@@ -57,7 +73,9 @@ function RoomBooking() {
                     _id,
                 }
             );
+
             setRoom(data.product);
+            setReviews(data.reviews);
             setTotal(data.product.pricePerDay);
         };
         try {
@@ -83,19 +101,22 @@ function RoomBooking() {
     const handlePublishReview = (e) => {
         e.preventDefault();
         // validate
+        if (!auth.token) {
+            toast.error("please login to use this function");
+            return;
+        }
         if (!comment) {
             toast.error("comment are required!");
             return;
         }
-        console.log(auth)
         const publish = async () => {
             const { data } = await axios.post(
                 `${process.env.REACT_APP_API}/api/v1/review/create`,
                 {
                     comment,
                     rate,
-                    authorId: auth.user._id,
-                    productId
+                    author: auth.user.name,
+                    productId,
                 }
             );
             if (data.success) {
@@ -110,6 +131,41 @@ function RoomBooking() {
             toast.error(error.response.data.message);
         }
     };
+
+    const formatDate = (createdValue) => {
+        const createdDate = new Date(createdValue);
+        const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        return createdDate.toLocaleDateString("en-US", options);
+    };
+
+    const starCount = (review, rate) => {
+        let count = 0;
+        for (let i = 0; i < review.length; i++) {
+            const element = review[i];
+            if (element.rate === rate) {
+                count++;
+            }
+        }
+        return count;
+    };
+
+    const avgRate = (reviews) => {
+        if (reviews.length === 0) return 0;
+        const totalRate = reviews.reduce(
+            (accumulator, currentReview) => accumulator + currentReview.rate,
+            0
+        );
+        return totalRate / reviews.length;
+    };
+
+    const formatDayjs = (dayjsDate) => {
+        return `${dayjsDate.$M+1}-${dayjsDate.$D}-${dayjsDate.$y}`
+    }
 
     return (
         <Layout>
@@ -156,7 +212,8 @@ function RoomBooking() {
                         <div className="btn-booking-now">
                             <Button
                                 variant="outline-primary"
-                                id="button-addon2">
+                                id="button-addon2"
+                                onClick={handleShow}>
                                 Book now
                             </Button>
                         </div>
@@ -164,7 +221,7 @@ function RoomBooking() {
                             <Button
                                 variant="outline-secondary"
                                 id="button-addon2">
-                                Add to cart
+                                Add to wishlist
                             </Button>
                         </div>
                     </div>
@@ -173,8 +230,14 @@ function RoomBooking() {
             <div className="room-rates">
                 <div className="room-rating-result">
                     <h4>Rating</h4>
-                    <Rating name="read-only" value={3} readOnly />
-                    <span>bases</span>
+                    <div className="room-rating-title">
+                        <Rating
+                            name="read-only"
+                            value={avgRate(reviews)}
+                            readOnly
+                        />
+                        <span>bases on {reviews.length} reviews</span>
+                    </div>
                     <hr style={{ marginBottom: "-5px" }} />
                     <BarChart
                         xAxis={[
@@ -186,17 +249,59 @@ function RoomBooking() {
                                     "3 stars",
                                     "2 stars",
                                     "1 star",
+                                    "0 star",
                                 ],
                             },
                         ]}
-                        series={[{ data: [14, 4, 3, 1, 4] }]}
+                        series={[
+                            {
+                                data: [
+                                    starCount(reviews, 5),
+                                    starCount(reviews, 4),
+                                    starCount(reviews, 3),
+                                    starCount(reviews, 2),
+                                    starCount(reviews, 1),
+                                    starCount(reviews, 0),
+                                ],
+                            },
+                        ]}
                         width={400}
                         height={230}
                     />
                 </div>
                 <div className="room-review">
+                    <div className="cards review-cards">
+                        {reviews.map((review) => (
+                            <div key={review._id}>
+                                <Card>
+                                    <Card.Body id="review-card">
+                                        <div className="review-card-comment">
+                                            <div className="review-title">
+                                                <h2 className="category-title">
+                                                    {review.author}
+                                                </h2>
+                                                <span
+                                                    style={{
+                                                        fontSize: "15px",
+                                                    }}>
+                                                    {formatDate(review.created)}
+                                                </span>
+                                            </div>
+                                            <span>{review.comment}</span>
+                                        </div>
+                                        <div className="review-card-rate">
+                                            <Rating
+                                                name="read-only"
+                                                value={review.rate}
+                                                readOnly
+                                            />
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        ))}
+                    </div>
                     <h4>Add Review</h4>
-
                     <Form.Group
                         className="mb-3"
                         controlId="exampleForm.ControlTextarea1">
@@ -225,6 +330,38 @@ function RoomBooking() {
                     </Button>
                 </div>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Booking information</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ul>
+                        <li>
+                            Customer Name: {auth.user.name}
+                        </li>
+                        <li>
+                            <strong>Room Name:</strong> {room.name}
+                        </li>
+                        <li>
+                            <strong>Check-in Date:</strong> {formatDayjs(checkin)}
+                        </li>
+                        <li>
+                            <strong>Check-out Date:</strong> {formatDayjs(checkout)}
+                        </li>
+                        <li>
+                            <strong>Total Price:</strong> ${total}
+                        </li>
+                    </ul>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Agree
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Layout>
     );
 }
