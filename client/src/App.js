@@ -17,6 +17,7 @@ import CategoryUpdation from "./components/Forms/Categories/CategoryUpdation";
 import ProductUpdation from "./components/Forms/Products/ProductUpdation";
 import Rooms from "./pages/rooms/Rooms";
 import RoomBooking from "./pages/rooms/RoomBooking";
+import OrderSuccess from "./pages/rooms/OrderSuccess";
 
 function App() {
     return (
@@ -50,6 +51,7 @@ function App() {
                     element={<UserItems.Supports />}
                 />
             </Route>
+            <Route path="order/success/:id" element={<OrderSuccess />} />
             <Route path="/admin" element={<AdminRoute />}>
                 <Route
                     path="dashboard"
@@ -92,6 +94,7 @@ function App() {
             </Route>
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:id" element={<RoomBooking />} />
+            <Route path="order/success/:id" element={<OrderSuccess />} />
         </Routes>
     );
 }

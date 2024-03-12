@@ -9,6 +9,7 @@ const categoryRoutes = require("./routes/categoryRoute");
 const productRoutes = require("./routes/productRoute");
 const userRoutes = require("./routes/userRoute");
 const reviewRoutes = require("./routes/reviewRoute");
+const orderRoutes = require("./routes/orderRoute");
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -27,6 +28,7 @@ app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/review", reviewRoutes);
+app.use("/api/v1/order", orderRoutes);
 
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`);
