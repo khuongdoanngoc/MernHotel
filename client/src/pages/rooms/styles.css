@@ -134,3 +134,18 @@
     display: flex;
     gap: 15px;
 }
+.order-success-info {
+    display: flex;
+    padding: 25px 0px;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+.order-success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+.order-action {
+    width: 170px !important;
+}

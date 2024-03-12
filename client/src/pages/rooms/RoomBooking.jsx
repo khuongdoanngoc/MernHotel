@@ -38,6 +38,7 @@ function RoomBooking() {
 
     // confirm book states
     const [show, setShow] = useState(false);
+    const [note, setNote] = useState("");
     const handleClose = () => setShow(false);
     const handleShow = () => {
         if (!auth.token) {
@@ -132,6 +133,31 @@ function RoomBooking() {
         }
     };
 
+    const handleSubmitBooking = (e) => {
+        e.preventDefault();
+
+        const doOrder = async () => {
+            const {data} = await axios.post(`${process.env.REACT_APP_API}/api/v1/order/create`, {
+                user: auth.user._id,
+                product: room._id,
+                checkin: formatDayjs(checkin),
+                checkout: formatDayjs(checkout),
+                total,
+                note
+            })
+            if (data.success) {
+                toast.success('order success!');
+                navigate(`/order/success/${data.newOrder._id}`);
+            }
+        }
+
+        try {
+            doOrder()
+        } catch (error) {
+            throw new error();
+        }
+    }
+
     const formatDate = (createdValue) => {
         const createdDate = new Date(createdValue);
         const options = {
@@ -164,8 +190,8 @@ function RoomBooking() {
     };
 
     const formatDayjs = (dayjsDate) => {
-        return `${dayjsDate.$M+1}-${dayjsDate.$D}-${dayjsDate.$y}`
-    }
+        return `${dayjsDate.$M + 1}-${dayjsDate.$D}-${dayjsDate.$y}`;
+    };
 
     return (
         <Layout>
@@ -335,29 +361,39 @@ function RoomBooking() {
                     <Modal.Title>Booking information</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ul>
-                        <li>
-                            Customer Name: {auth.user.name}
-                        </li>
-                        <li>
-                            <strong>Room Name:</strong> {room.name}
-                        </li>
-                        <li>
-                            <strong>Check-in Date:</strong> {formatDayjs(checkin)}
-                        </li>
-                        <li>
-                            <strong>Check-out Date:</strong> {formatDayjs(checkout)}
-                        </li>
-                        <li>
-                            <strong>Total Price:</strong> ${total}
-                        </li>
-                    </ul>
+                    {auth.token ? (
+                        <ul>
+                            <li>Customer Name: {auth.user.name}</li>
+                            <li>
+                                <strong>Room Name:</strong> {room.name}
+                            </li>
+                            <li>
+                                <strong>Check-in Date:</strong>{" "}
+                                {formatDayjs(checkin)}
+                            </li>
+                            <li>
+                                <strong>Check-out Date:</strong>{" "}
+                                {formatDayjs(checkout)}
+                            </li>
+                            <li style={{ color: 'red'}}>
+                                <strong>Total Price:</strong> ${total}
+                            </li>
+                            <li>Note</li>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                onChange={(e) => setNote(e.target.value)}
+                            />
+                        </ul>
+                    ) : (
+                        <div>no auth</div>
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSubmitBooking}>
                         Agree
                     </Button>
                 </Modal.Footer>
