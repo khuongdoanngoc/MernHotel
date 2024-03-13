@@ -7,6 +7,7 @@ import Reviews from "./Reviews";
 import Users from "./Users";
 import WishList from "./WishList";
 import Supports from "./Supports";
+import OrderDetails from "./OrderDetails";
 
 export {
     AdminDashboard,
@@ -18,5 +19,5 @@ export {
     Users,
     WishList,
     Supports,
+    OrderDetails,
 };
-

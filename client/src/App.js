@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./pages/Home/index";
-import PageNotFound from "./pages/NoPage";
+import PageNotFound from "./pages/NoPage/NoPage";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -35,12 +35,12 @@ function App() {
                     element={<UserItems.AccountSecurity />}
                 />
                 <Route
-                    path="dashboard/address"
-                    element={<UserItems.Address />}
-                />
-                <Route
                     path="dashboard/order"
                     element={<UserItems.UserOrders />}
+                />
+                <Route
+                    path="dashboard/order/:id"
+                    element={<UserItems.OrderDetails />}
                 />
                 <Route
                     path="dashboard/wishlist"
@@ -70,6 +70,10 @@ function App() {
                     element={<CategoryUpdation />}
                 />
                 <Route path="dashboard/order" element={<AdminItems.Orders />} />
+                <Route
+                    path="dashboard/order/:id"
+                    element={<AdminItems.OrderDetails />}
+                />
                 <Route
                     path="dashboard/product"
                     element={<AdminItems.Products />}

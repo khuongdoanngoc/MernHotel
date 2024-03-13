@@ -38,10 +38,10 @@ function OrderSuccess() {
                 <span>A confirmation email will be sent to you shortly.</span>
             </div>
             <div className="order-success-actions">
-                <button className="submit-button order-action">
+                <button className="submit-button order-action" onClick={() => navigate('/user/dashboard/order')}>
                     <span>Manage Orders</span>
                 </button>
-                <button className="submit-button order-action">
+                <button className="submit-button order-action" onClick={() => navigate('/rooms')}>
                     <span>Continue Shopping</span>
                 </button>
             </div>

@@ -31,13 +31,6 @@ function UserDashboardMenu() {
                     <tr>
                         <td
                             style={{ display: "block" }}
-                            onClick={() => navigate("/user/dashboard/address")}>
-                            Address
-                        </td>
-                    </tr>
-                    <tr>
-                        <td
-                            style={{ display: "block" }}
                             onClick={() => navigate("/user/dashboard/order")}>
                             Orders
                         </td>

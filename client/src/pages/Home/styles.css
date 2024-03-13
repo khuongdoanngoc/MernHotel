@@ -17,7 +17,7 @@
 .home-leftside-content-banner1 {
     width: 100%;
     height: 60%;
-    background-image: url('./images/leftright-banner1.jpeg');
+    background-image: url('https://i.imgur.com/zyPzSGa.jpeg');
     background-size: cover;
 }
 
@@ -33,7 +33,7 @@
     width: 50%;
     height: 380px;
     background-size: cover;
-    background-image: url('./images/center-banner.jpeg');
+    background-image: url('https://i.imgur.com/LDH6Ga1.png');
 }
 
 .home-rightside-content {

@@ -32,8 +32,8 @@ function Header() {
         <header className="header">
             <div className="header-info">
                 <div className="header-info-items">
-                    <i className="bi bi-truck"></i>
-                    <span>Free Shipping</span>
+                    <i className="bi bi-egg-fried"></i>
+                    <span>Free Breakfast</span>
                 </div>
                 <div className="header-info-items">
                     <i className="bi bi-credit-card"></i>
@@ -72,7 +72,10 @@ function Header() {
                     </Offcanvas>
                 </div>
                 <div className="header-search">
-                    <Form.Control className="input-focus" placeholder="Search Products" />
+                    <Form.Control
+                        className="input-focus"
+                        placeholder="Search Products"
+                    />
                 </div>
                 <div className="header-right-items">
                     <div className="header-card">
@@ -99,8 +102,12 @@ function Header() {
                             </Offcanvas.Body>
                         </Offcanvas>
                     </div>
-                    <div className="header-brands text-right-items">Brands</div>
-                    <a href="/rooms" className="header-shop text-right-items">Rooms</a>
+                    <div className="header-brands text-right-items">
+                        Contact
+                    </div>
+                    <a href="/rooms" className="header-shop text-right-items">
+                        Rooms
+                    </a>
                     <div className="header-auth text-right-items">
                         <Dropdown className="header-auth-dropdown">
                             {!auth.user ? (
