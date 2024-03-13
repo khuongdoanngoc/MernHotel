@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs')
+const JWT = require("jsonwebtoken");
+
 
 const hashPassword = async (password) => {
     try {
@@ -20,8 +22,13 @@ const comparePassword = async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);
 }
 
+const decodeToken = async (token) => {
+    return await JWT.decode(token);
+}
+
 module.exports = {
     hashPassword,
     comparePassword,
-    generateCode
+    generateCode,
+    decodeToken
 }
