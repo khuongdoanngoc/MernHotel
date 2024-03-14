@@ -104,6 +104,13 @@ const login = async (req, res) => {
             });
         }
 
+        if (result.authType !== 'local') {
+            return res.status(403).send({
+                success: false,
+                message: `This user is authenticated by ${result.authType}`,
+            });
+        }
+
         // compare password
         const isMatched = await comparePassword(password, result.password);
         if (!isMatched) {
