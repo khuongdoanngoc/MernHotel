@@ -7,10 +7,13 @@ import Pagination from "react-bootstrap/Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Rooms() {
     const [rooms, setRooms] = useState([]);
-    const navigate = useNavigate()
+    const [filter, setFilter] = useState("");
+    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
 
     const [pageNum, setPageNum] = useState(1);
     let items = [];
@@ -36,6 +39,41 @@ function Rooms() {
         }
     }, []);
 
+    useEffect(() => {
+        const getCategories = async () => {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API}/api/v1/category/`
+            );
+            if (!data.success) {
+                toast.error("error get category");
+                return;
+            }
+            setCategories(data.categories);
+        };
+        try {
+            getCategories();
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    const filteredRooms = rooms.filter((room) => {
+        const roomSlug = room.slug.toLowerCase();
+        const filterSlug = filter.toLowerCase();
+
+        if (filter === "") {
+            return true;
+        } else if (
+            filterSlug === "single" ||
+            filterSlug === "double" ||
+            filterSlug === "family"
+        ) {
+            return roomSlug.includes(filterSlug);
+        } else {
+            return false;
+        }
+    });
+
     return (
         <Layout>
             <div className="rooms-wrapper">
@@ -44,27 +82,37 @@ function Rooms() {
                         <span>Showing: 1 - 10 rooms of 12 rooms</span>
                     </div>
                     <div className="sortby">
-                        <Form.Select aria-label="Default select example">
-                            <option defaultChecked value="1">
+                        <Form.Select
+                            aria-label="Default select example"
+                            onChange={(e) => {
+                                setFilter(e.target.value);
+                            }}>
+                            <option defaultChecked value="">
                                 All
                             </option>
-                            <option value="2">Single rooms</option>
-                            <option value="3">Double rooms</option>
-                            <option value="3">Family rooms</option>
+                            {categories.map((category) => (
+                                <option key={category._id} value={category.slug}>
+                                    {category.name} rooms
+                                </option>
+                            ))}
                         </Form.Select>
                     </div>
                 </div>
                 <div className="booth">
-                    {rooms.map((room) => (
+                    {filteredRooms.map((room) => (
                         <Card style={{ width: "263.5px" }} key={room._id}>
-                            <Card.Img
-                                variant="top"
-                                src={`${room.imgUrl}`}
-                            />
+                            <Card.Img variant="top" src={`${room.imgUrl}`} />
                             <Card.Body>
                                 <Card.Title>{room.name}</Card.Title>
                                 <Card.Text>{room.description}</Card.Text>
-                                <Button variant="primary" onClick={(e) => {e.preventDefault(); navigate(`${room._id}`) }}>${room.pricePerDay}</Button>
+                                <Button
+                                    variant="primary"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        navigate(`${room._id}`);
+                                    }}>
+                                    ${room.pricePerDay}
+                                </Button>
                             </Card.Body>
                         </Card>
                     ))}
