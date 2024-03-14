@@ -12,7 +12,7 @@ const {
 } = require("../controllers/categoryController");
 
 router.post("/create", requireLogin, isAdmin, createCategory);
-router.get("/", requireLogin, isAdmin, getCategories);
+router.get("/", getCategories);
 router.get("/:slug", requireLogin, isAdmin, descriptionCategory);
 router.patch("/update", requireLogin, isAdmin, updateCategory);
 router.delete("/:slug/delete", requireLogin, isAdmin, deleteCategory);
