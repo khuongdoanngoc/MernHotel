@@ -158,6 +158,24 @@ function RoomBooking() {
         }
     }
 
+    const handleAddToWishList = async (e) => {
+        e.preventDefault();
+        try {
+            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/user/add-to-wishlist`, {
+                userId: auth.user._id,
+                productId
+            })
+            if (!data.success) {
+                toast.error('add to wishlist failure!')
+                return;
+            }
+            toast.success('add to wishlist success!');
+             
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const formatDate = (createdValue) => {
         const createdDate = new Date(createdValue);
         const options = {
@@ -246,7 +264,9 @@ function RoomBooking() {
                         <div className="btn-add-to-cart">
                             <Button
                                 variant="outline-secondary"
-                                id="button-addon2">
+                                id="button-addon2"
+                                onClick={handleAddToWishList}
+                                >
                                 Add to wishlist
                             </Button>
                         </div>

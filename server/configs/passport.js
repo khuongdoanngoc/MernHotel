@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 const userModel = require("../models/userModel");
+const { hashPassword } = require("../helpers/authHelper");
 
 passport.initialize();
 
@@ -18,17 +19,19 @@ passport.use(
             try {
                 // check if exist google account
                 const profileEmail = profile.emails[0].value;
-                const isExist = await userModel.findOne({
+                const isExistEmail = await userModel.findOne({
                     email: profileEmail,
                 });
-                if (isExist) {
-                    return cb(null, isExist);
+                if (isExistEmail) {
+                    return cb(null, isExistEmail);
                 }
+                
                 const newUser = userModel({
                     authType: "google",
                     authGoogleId: profile.id,
                     role: 0,
                     name: profile.name.familyName,
+                    username: profile.emails[0].value,
                     email: profile.emails[0].value,
                     password: ""
                 });
@@ -52,13 +55,21 @@ passport.use(
         },
         async function (accessToken, refreshToken, profile, cb) {
             try {
-                const isExist = await userModel.findOne({
+                const isExistEmail = await userModel.findOne({
                     email: `${profile.id}@gmail.com`,
                 });
-                if (isExist) {
-                    return cb(null, isExist);
+                const isExistUsername = await userModel.findOne({
+                    username: `${profile.id}`,
+                });
+                if (isExistUsername) {
+                    return cb(null, isExistUsername);
+                }
+                if (isExistEmail) {
+                    return cb(null, isExistEmail);
                 }
                 const newUser = new userModel({
+                    username: `${profile.id}`,
+                    password: "",
                     authType: "facebook",
                     authFacebookId: profile.id,
                     role: 0,
