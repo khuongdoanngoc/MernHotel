@@ -16,7 +16,8 @@ const register = async (req, res) => {
         newUserData.authType = "local";
         // validate required: true
         {
-            const { username, name, email, password, phone, address } = newUserData;
+            const { username, name, email, password, phone, address } =
+                newUserData;
             if (!username) {
                 return res
                     .status(404)
@@ -49,10 +50,9 @@ const register = async (req, res) => {
             }
         }
         // hash password
-        {
-            const hashedPassword = await hashPassword(newUserData.password);
-            newUserData.password = hashedPassword;
-        }
+        const hashedPassword = await hashPassword(newUserData.password);
+        newUserData.password = hashedPassword;
+
         const existingUser = await userModel.findOne({
             username: newUserData.username,
         });
@@ -104,7 +104,7 @@ const login = async (req, res) => {
             });
         }
 
-        if (result.authType !== 'local') {
+        if (result.authType !== "local") {
             return res.status(403).send({
                 success: false,
                 message: `This user is authenticated by ${result.authType}`,

@@ -105,7 +105,7 @@ function OrderDetails() {
                                 className="submit-button"
                                 type="submit"
                                 onClick={handleCancelOrder}>
-                                <span>Cancel Order</span>
+                                <span>Complete Order</span>
                             </button>
                         </div>
                     </div>
