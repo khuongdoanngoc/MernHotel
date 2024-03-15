@@ -66,6 +66,7 @@ function RoomBooking() {
         setTotal(diff * room.pricePerDay);
     }, [checkin, checkout]);
 
+
     useEffect(() => {
         const getRoom = async (_id) => {
             const { data } = await axios.post(
@@ -137,44 +138,49 @@ function RoomBooking() {
         e.preventDefault();
 
         const doOrder = async () => {
-            const {data} = await axios.post(`${process.env.REACT_APP_API}/api/v1/order/create`, {
-                user: auth.user._id,
-                product: room._id,
-                checkin: formatDayjs(checkin),
-                checkout: formatDayjs(checkout),
-                total,
-                note
-            })
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_API}/api/v1/order/create`,
+                {
+                    user: auth.user._id,
+                    product: room._id,
+                    checkin: formatDayjs(checkin),
+                    checkout: formatDayjs(checkout),
+                    total,
+                    note,
+                }
+            );
             if (data.success) {
-                toast.success('order success!');
+                toast.success("order success!");
                 navigate(`/order/success/${data.newOrder._id}`);
             }
-        }
+        };
 
         try {
-            doOrder()
+            doOrder();
         } catch (error) {
             throw new error();
         }
-    }
+    };
 
     const handleAddToWishList = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/user/add-to-wishlist`, {
-                userId: auth.user._id,
-                productId
-            })
+            const { data } = await axios.post(
+                `${process.env.REACT_APP_API}/api/v1/user/add-to-wishlist`,
+                {
+                    userId: auth.user._id,
+                    productId,
+                }
+            );
             if (!data.success) {
-                toast.error('add to wishlist failure!')
+                toast.error("add to wishlist failure!");
                 return;
             }
-            toast.success('add to wishlist success!');
-             
+            toast.success("add to wishlist success!");
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     const formatDate = (createdValue) => {
         const createdDate = new Date(createdValue);
@@ -265,9 +271,8 @@ function RoomBooking() {
                             <Button
                                 variant="outline-secondary"
                                 id="button-addon2"
-                                onClick={handleAddToWishList}
-                                >
-                                Add to wishlist
+                                onClick={handleAddToWishList}>
+                                    Add to wishlist
                             </Button>
                         </div>
                     </div>
@@ -395,7 +400,7 @@ function RoomBooking() {
                                 <strong>Check-out Date:</strong>{" "}
                                 {formatDayjs(checkout)}
                             </li>
-                            <li style={{ color: 'red'}}>
+                            <li style={{ color: "red" }}>
                                 <strong>Total Price:</strong> ${total}
                             </li>
                             <li>Note</li>
